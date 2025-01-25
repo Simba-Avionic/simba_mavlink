@@ -1,12 +1,12 @@
 /** @file
- *  @brief MAVLink comm protocol built from simba_dialect.xml
+ *  @brief MAVLink comm protocol built from simba.xml
  *  @see http://mavlink.org
  */
 #pragma once
 #ifndef MAVLINK_H
 #define MAVLINK_H
 
-#define MAVLINK_PRIMARY_XML_HASH 6337334848159210071
+#define MAVLINK_PRIMARY_XML_HASH 9079369176350746136
 
 #ifndef MAVLINK_STX
 #define MAVLINK_STX 254
@@ -29,6 +29,6 @@
 #endif
 
 #include "version.h"
-#include "simba_dialect.h"
+#include "simba.h"
 
 #endif // MAVLINK_H

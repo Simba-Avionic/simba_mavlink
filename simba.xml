@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<mavlink>
+
+    <!-- <version>9</version> -->
+    <dialect>3</dialect>
+
+    <enums>
+        <!-- Enums are defined here (optional) -->
+    </enums>
+
+    <messages>
+        <message id="68" name="SIMBA_ACTUATOR">
+            <description>Status update from actuator.</description>
+            <field type="uint8_t" name="values">Actuators' values - each bit represents one actuator</field>
+        </message>
+        <message id="69" name="SIMBA_TANK_TEMPERATURE">
+            <description>Readings from tank temperature sensors.</description>
+            <field type="uint16_t" name="temp1">Temperature from tank</field>
+            <field type="uint16_t" name="temp2">Temperature from tank</field>
+            <field type="uint16_t" name="temp3">Temperature from tank</field>
+        </message>
+        <message id="70" name="SIMBA_TANK_PRESSURE">
+            <description>Readings from tank pressure sensor.</description>
+            <field type="float" name="pressure">Pressure from tank</field>
+        </message>
+        <message id="71" name="SIMBA_TANK_D_PRESSURE">
+            <description>Readings from tank Delta pressure sensor.</description>
+            <field type="float" name="pressure">Pressure from tank</field>
+        </message>
+        <message id="72" name="SIMBA_GPS">
+            <description></description>
+            <field type="int32_t" name="lat">Latitude</field>
+            <field type="int32_t" name="lon">Longitude</field>
+            <field type="int32_t" name="alt">Altitude</field>
+        </message>
+        <message id="73" name="SIMBA_MAX_ALTITUDE">
+            <description></description>
+            <field type="int32_t" name="alt">Max altitude</field>
+        </message>
+        <message id="74" name="SIMBA_HEARTBEAT_1">
+            <description>Health from first onboard computers.</description>
+            <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
+            <field type="uint8_t" name="computer_status">Status of computer</field>
+        </message>
+        <message id="75" name="SIMBA_HEARTBEAT_2">
+            <description>Health from second onboard computer.</description>
+            <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
+            <field type="uint8_t" name="computer_status">Status of computer</field>
+        </message>
+        <message id="144" name="SIMBA_CMD_HOLD">
+            <description> Change Rocket state to HOLD</description>
+            <field type="uint8_t" name="cmd_abort">Command for hold</field>
+        </message>
+        <message id="145" name="SIMBA_CMD_ABORT">
+            <description></description>
+            <field type="uint8_t" name="cmd_abort">Command for abort</field>
+        </message>
+    </messages>
+
+</mavlink>
