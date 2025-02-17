@@ -15,11 +15,11 @@
 *.so
 *.dylib
 *.dll
-
+.vscode
 # Fortran module files
 *.mod
 *.smod
-
+MODULE.bazel.lock
 # Compiled Static libraries
 *.lai
 *.la
@@ -31,3 +31,7 @@
 *.out
 *.app
 mavlink
+bazel-bin
+bazel-out
+bazel-testlogs
+bazel-simba_mavlink

@@ -37,15 +37,11 @@
             <description></description>
             <field type="int32_t" name="alt">Max altitude</field>
         </message>
-        <message id="74" name="SIMBA_HEARTBEAT_1">
-            <description>Health from first onboard computers.</description>
+        <message id="74" name="SIMBA_HEARTBEAT">
+            <description></description>
             <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
-            <field type="uint8_t" name="computer_status">Status of computer</field>
-        </message>
-        <message id="75" name="SIMBA_HEARTBEAT_2">
-            <description>Health from second onboard computer.</description>
-            <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
-            <field type="uint8_t" name="computer_status">Status of computer</field>
+            <field type="uint8_t" name="flight_computer_status">Status of computer</field>
+            <field type="uint8_t" name="engine_computer_status">Status of computer</field>
         </message>
         <message id="144" name="SIMBA_CMD_HOLD">
             <description> Change Rocket state to HOLD</description>
@@ -54,6 +50,15 @@
         <message id="145" name="SIMBA_CMD_ABORT">
             <description></description>
             <field type="uint8_t" name="cmd_abort">Command for abort</field>
+        </message>
+        <message id="146" name="SIMBA_CMD_CHANGE">
+            <description></description>
+            <field type="uint8_t" name="cmd_change">Command for abort</field>
+        </message>
+        <message id="147" name="SIMBA_CMD">
+            <description></description>
+            <field type="uint8_t" name="actuator_id">id device to change state</field>
+            <field type="uint8_t" name="value">value to set actuator</field>
         </message>
     </messages>
 
