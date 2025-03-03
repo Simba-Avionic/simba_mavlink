@@ -5,7 +5,7 @@
 
 
 typedef struct __mavlink_simba_cmd_change_t {
- uint8_t cmd_change; /*<  Command for abort*/
+ uint8_t cmd_change; /*<  Command*/
 } mavlink_simba_cmd_change_t;
 
 #define MAVLINK_MSG_ID_SIMBA_CMD_CHANGE_LEN 1
@@ -41,7 +41,7 @@ typedef struct __mavlink_simba_cmd_change_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param cmd_change  Command for abort
+ * @param cmd_change  Command
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_change_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -70,7 +70,7 @@ static inline uint16_t mavlink_msg_simba_cmd_change_pack(uint8_t system_id, uint
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param cmd_change  Command for abort
+ * @param cmd_change  Command
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_change_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
@@ -102,7 +102,7 @@ static inline uint16_t mavlink_msg_simba_cmd_change_pack_status(uint8_t system_i
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param cmd_change  Command for abort
+ * @param cmd_change  Command
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_change_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -170,7 +170,7 @@ static inline uint16_t mavlink_msg_simba_cmd_change_encode_status(uint8_t system
  * @brief Send a simba_cmd_change message
  * @param chan MAVLink channel to send the message
  *
- * @param cmd_change  Command for abort
+ * @param cmd_change  Command
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -235,7 +235,7 @@ static inline void mavlink_msg_simba_cmd_change_send_buf(mavlink_message_t *msgb
 /**
  * @brief Get field cmd_change from simba_cmd_change message
  *
- * @return  Command for abort
+ * @return  Command
  */
 static inline uint8_t mavlink_msg_simba_cmd_change_get_cmd_change(const mavlink_message_t* msg)
 {

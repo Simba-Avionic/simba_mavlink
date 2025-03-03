@@ -5,7 +5,7 @@
 
 
 typedef struct __mavlink_simba_cmd_abort_t {
- uint8_t cmd_abort; /*<  Command for abort*/
+ uint8_t value; /*<  Ignoring field*/
 } mavlink_simba_cmd_abort_t;
 
 #define MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN 1
@@ -13,8 +13,8 @@ typedef struct __mavlink_simba_cmd_abort_t {
 #define MAVLINK_MSG_ID_145_LEN 1
 #define MAVLINK_MSG_ID_145_MIN_LEN 1
 
-#define MAVLINK_MSG_ID_SIMBA_CMD_ABORT_CRC 205
-#define MAVLINK_MSG_ID_145_CRC 205
+#define MAVLINK_MSG_ID_SIMBA_CMD_ABORT_CRC 3
+#define MAVLINK_MSG_ID_145_CRC 3
 
 
 
@@ -23,14 +23,14 @@ typedef struct __mavlink_simba_cmd_abort_t {
     145, \
     "SIMBA_CMD_ABORT", \
     1, \
-    {  { "cmd_abort", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_cmd_abort_t, cmd_abort) }, \
+    {  { "value", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_cmd_abort_t, value) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SIMBA_CMD_ABORT { \
     "SIMBA_CMD_ABORT", \
     1, \
-    {  { "cmd_abort", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_cmd_abort_t, cmd_abort) }, \
+    {  { "value", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_cmd_abort_t, value) }, \
          } \
 }
 #endif
@@ -41,20 +41,20 @@ typedef struct __mavlink_simba_cmd_abort_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param cmd_abort  Command for abort
+ * @param value  Ignoring field
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_abort_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t cmd_abort)
+                               uint8_t value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN];
-    _mav_put_uint8_t(buf, 0, cmd_abort);
+    _mav_put_uint8_t(buf, 0, value);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN);
 #else
     mavlink_simba_cmd_abort_t packet;
-    packet.cmd_abort = cmd_abort;
+    packet.value = value;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN);
 #endif
@@ -70,20 +70,20 @@ static inline uint16_t mavlink_msg_simba_cmd_abort_pack(uint8_t system_id, uint8
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param cmd_abort  Command for abort
+ * @param value  Ignoring field
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_abort_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint8_t cmd_abort)
+                               uint8_t value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN];
-    _mav_put_uint8_t(buf, 0, cmd_abort);
+    _mav_put_uint8_t(buf, 0, value);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN);
 #else
     mavlink_simba_cmd_abort_t packet;
-    packet.cmd_abort = cmd_abort;
+    packet.value = value;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN);
 #endif
@@ -102,21 +102,21 @@ static inline uint16_t mavlink_msg_simba_cmd_abort_pack_status(uint8_t system_id
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param cmd_abort  Command for abort
+ * @param value  Ignoring field
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_abort_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t cmd_abort)
+                                   uint8_t value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN];
-    _mav_put_uint8_t(buf, 0, cmd_abort);
+    _mav_put_uint8_t(buf, 0, value);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN);
 #else
     mavlink_simba_cmd_abort_t packet;
-    packet.cmd_abort = cmd_abort;
+    packet.value = value;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN);
 #endif
@@ -135,7 +135,7 @@ static inline uint16_t mavlink_msg_simba_cmd_abort_pack_chan(uint8_t system_id, 
  */
 static inline uint16_t mavlink_msg_simba_cmd_abort_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_simba_cmd_abort_t* simba_cmd_abort)
 {
-    return mavlink_msg_simba_cmd_abort_pack(system_id, component_id, msg, simba_cmd_abort->cmd_abort);
+    return mavlink_msg_simba_cmd_abort_pack(system_id, component_id, msg, simba_cmd_abort->value);
 }
 
 /**
@@ -149,7 +149,7 @@ static inline uint16_t mavlink_msg_simba_cmd_abort_encode(uint8_t system_id, uin
  */
 static inline uint16_t mavlink_msg_simba_cmd_abort_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_simba_cmd_abort_t* simba_cmd_abort)
 {
-    return mavlink_msg_simba_cmd_abort_pack_chan(system_id, component_id, chan, msg, simba_cmd_abort->cmd_abort);
+    return mavlink_msg_simba_cmd_abort_pack_chan(system_id, component_id, chan, msg, simba_cmd_abort->value);
 }
 
 /**
@@ -163,27 +163,27 @@ static inline uint16_t mavlink_msg_simba_cmd_abort_encode_chan(uint8_t system_id
  */
 static inline uint16_t mavlink_msg_simba_cmd_abort_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_simba_cmd_abort_t* simba_cmd_abort)
 {
-    return mavlink_msg_simba_cmd_abort_pack_status(system_id, component_id, _status, msg,  simba_cmd_abort->cmd_abort);
+    return mavlink_msg_simba_cmd_abort_pack_status(system_id, component_id, _status, msg,  simba_cmd_abort->value);
 }
 
 /**
  * @brief Send a simba_cmd_abort message
  * @param chan MAVLink channel to send the message
  *
- * @param cmd_abort  Command for abort
+ * @param value  Ignoring field
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_simba_cmd_abort_send(mavlink_channel_t chan, uint8_t cmd_abort)
+static inline void mavlink_msg_simba_cmd_abort_send(mavlink_channel_t chan, uint8_t value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN];
-    _mav_put_uint8_t(buf, 0, cmd_abort);
+    _mav_put_uint8_t(buf, 0, value);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_CMD_ABORT, buf, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_CRC);
 #else
     mavlink_simba_cmd_abort_t packet;
-    packet.cmd_abort = cmd_abort;
+    packet.value = value;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_CMD_ABORT, (const char *)&packet, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_CRC);
 #endif
@@ -197,7 +197,7 @@ static inline void mavlink_msg_simba_cmd_abort_send(mavlink_channel_t chan, uint
 static inline void mavlink_msg_simba_cmd_abort_send_struct(mavlink_channel_t chan, const mavlink_simba_cmd_abort_t* simba_cmd_abort)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_simba_cmd_abort_send(chan, simba_cmd_abort->cmd_abort);
+    mavlink_msg_simba_cmd_abort_send(chan, simba_cmd_abort->value);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_CMD_ABORT, (const char *)simba_cmd_abort, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_CRC);
 #endif
@@ -211,16 +211,16 @@ static inline void mavlink_msg_simba_cmd_abort_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_simba_cmd_abort_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t cmd_abort)
+static inline void mavlink_msg_simba_cmd_abort_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-    _mav_put_uint8_t(buf, 0, cmd_abort);
+    _mav_put_uint8_t(buf, 0, value);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_CMD_ABORT, buf, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_CRC);
 #else
     mavlink_simba_cmd_abort_t *packet = (mavlink_simba_cmd_abort_t *)msgbuf;
-    packet->cmd_abort = cmd_abort;
+    packet->value = value;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_CMD_ABORT, (const char *)packet, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_CRC);
 #endif
@@ -233,11 +233,11 @@ static inline void mavlink_msg_simba_cmd_abort_send_buf(mavlink_message_t *msgbu
 
 
 /**
- * @brief Get field cmd_abort from simba_cmd_abort message
+ * @brief Get field value from simba_cmd_abort message
  *
- * @return  Command for abort
+ * @return  Ignoring field
  */
-static inline uint8_t mavlink_msg_simba_cmd_abort_get_cmd_abort(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_simba_cmd_abort_get_value(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
 }
@@ -251,7 +251,7 @@ static inline uint8_t mavlink_msg_simba_cmd_abort_get_cmd_abort(const mavlink_me
 static inline void mavlink_msg_simba_cmd_abort_decode(const mavlink_message_t* msg, mavlink_simba_cmd_abort_t* simba_cmd_abort)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    simba_cmd_abort->cmd_abort = mavlink_msg_simba_cmd_abort_get_cmd_abort(msg);
+    simba_cmd_abort->value = mavlink_msg_simba_cmd_abort_get_value(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN? msg->len : MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN;
         memset(simba_cmd_abort, 0, MAVLINK_MSG_ID_SIMBA_CMD_ABORT_LEN);

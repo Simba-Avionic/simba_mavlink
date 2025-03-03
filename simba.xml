@@ -14,49 +14,50 @@
             <field type="uint8_t" name="values">Actuators' values - each bit represents one actuator</field>
         </message>
         <message id="69" name="SIMBA_TANK_TEMPERATURE">
-            <description>Readings from tank temperature sensors.</description>
+            <description>wym. GSE-1 Readings from tank temperature sensors.</description>
             <field type="uint16_t" name="temp1">Temperature from tank</field>
             <field type="uint16_t" name="temp2">Temperature from tank</field>
             <field type="uint16_t" name="temp3">Temperature from tank</field>
         </message>
         <message id="70" name="SIMBA_TANK_PRESSURE">
-            <description>Readings from tank pressure sensor.</description>
+            <description>wym GSE-1 Readings from tank pressure sensor.</description>
             <field type="float" name="pressure">Pressure from tank</field>
+            <field type="float" name="Dpressure">Delta Pressure from tank</field>
         </message>
-        <message id="71" name="SIMBA_TANK_D_PRESSURE">
-            <description>Readings from tank Delta pressure sensor.</description>
-            <field type="float" name="pressure">Pressure from tank</field>
+        <message id="71" name="SIMBA_ALTITUDE_ORIENTATION">
+            <description>Data</description>
+            <field type="uint8_t" name="engine_computer_status"> TODO</field>
         </message>
         <message id="72" name="SIMBA_GPS">
-            <description></description>
+            <description>wym. GSE-0</description>
             <field type="int32_t" name="lat">Latitude</field>
             <field type="int32_t" name="lon">Longitude</field>
             <field type="int32_t" name="alt">Altitude</field>
         </message>
-        <message id="73" name="SIMBA_MAX_ALTITUDE">
-            <description></description>
-            <field type="int32_t" name="alt">Max altitude</field>
-        </message>
-        <message id="74" name="SIMBA_HEARTBEAT">
+        <message id="73" name="SIMBA_HEARTBEAT">
             <description></description>
             <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
-            <field type="uint8_t" name="flight_computer_status">Status of computer</field>
-            <field type="uint8_t" name="engine_computer_status">Status of computer</field>
+            <field type="uint8_t" name="flight_computer_status">wym. AWION-20 Status of computer</field>
+            <field type="uint8_t" name="engine_computer_status">wym. AWION-20 Status of computer</field>
+        </message>
+        <message id="74" name="SIMBA_MAX_ALTITUDE">
+            <description>wym. GSE-2</description>
+            <field type="int32_t" name="alt">Max altitude</field>
         </message>
         <message id="144" name="SIMBA_CMD_HOLD">
-            <description> Change Rocket state to HOLD</description>
-            <field type="uint8_t" name="cmd_abort">Command for hold</field>
+            <description>wym. GSE-5 Change Rocket state to HOLD</description>
+            <field type="uint8_t" name="value">Ignoring field</field>
         </message>
         <message id="145" name="SIMBA_CMD_ABORT">
-            <description></description>
-            <field type="uint8_t" name="cmd_abort">Command for abort</field>
+            <description>wym. GSE-4</description>
+            <field type="uint8_t" name="value">Ignoring field</field>
         </message>
         <message id="146" name="SIMBA_CMD_CHANGE">
             <description></description>
-            <field type="uint8_t" name="cmd_change">Command for abort</field>
+            <field type="uint8_t" name="cmd_change">Command</field>
         </message>
-        <message id="147" name="SIMBA_CMD">
-            <description></description>
+        <message id="147" name="SIMBA_ACTUATOR_CMD">
+            <description>wym. GSE-3, wym. AWION-21</description>
             <field type="uint8_t" name="actuator_id">id device to change state</field>
             <field type="uint8_t" name="value">value to set actuator</field>
         </message>

@@ -1,28 +1,28 @@
 #pragma once
 // MESSAGE SIMBA_HEARTBEAT PACKING
 
-#define MAVLINK_MSG_ID_SIMBA_HEARTBEAT 74
+#define MAVLINK_MSG_ID_SIMBA_HEARTBEAT 73
 
 
 typedef struct __mavlink_simba_heartbeat_t {
  uint64_t timestamp; /*<  Timestamp (time since system boot)*/
- uint8_t flight_computer_status; /*<  Status of computer*/
- uint8_t engine_computer_status; /*<  Status of computer*/
+ uint8_t flight_computer_status; /*<  wym. AWION-20 Status of computer*/
+ uint8_t engine_computer_status; /*<  wym. AWION-20 Status of computer*/
 } mavlink_simba_heartbeat_t;
 
 #define MAVLINK_MSG_ID_SIMBA_HEARTBEAT_LEN 10
 #define MAVLINK_MSG_ID_SIMBA_HEARTBEAT_MIN_LEN 10
-#define MAVLINK_MSG_ID_74_LEN 10
-#define MAVLINK_MSG_ID_74_MIN_LEN 10
+#define MAVLINK_MSG_ID_73_LEN 10
+#define MAVLINK_MSG_ID_73_MIN_LEN 10
 
 #define MAVLINK_MSG_ID_SIMBA_HEARTBEAT_CRC 184
-#define MAVLINK_MSG_ID_74_CRC 184
+#define MAVLINK_MSG_ID_73_CRC 184
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_SIMBA_HEARTBEAT { \
-    74, \
+    73, \
     "SIMBA_HEARTBEAT", \
     3, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_simba_heartbeat_t, timestamp) }, \
@@ -48,8 +48,8 @@ typedef struct __mavlink_simba_heartbeat_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param timestamp  Timestamp (time since system boot)
- * @param flight_computer_status  Status of computer
- * @param engine_computer_status  Status of computer
+ * @param flight_computer_status  wym. AWION-20 Status of computer
+ * @param engine_computer_status  wym. AWION-20 Status of computer
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -83,8 +83,8 @@ static inline uint16_t mavlink_msg_simba_heartbeat_pack(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  *
  * @param timestamp  Timestamp (time since system boot)
- * @param flight_computer_status  Status of computer
- * @param engine_computer_status  Status of computer
+ * @param flight_computer_status  wym. AWION-20 Status of computer
+ * @param engine_computer_status  wym. AWION-20 Status of computer
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_heartbeat_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
@@ -121,8 +121,8 @@ static inline uint16_t mavlink_msg_simba_heartbeat_pack_status(uint8_t system_id
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param timestamp  Timestamp (time since system boot)
- * @param flight_computer_status  Status of computer
- * @param engine_computer_status  Status of computer
+ * @param flight_computer_status  wym. AWION-20 Status of computer
+ * @param engine_computer_status  wym. AWION-20 Status of computer
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -195,8 +195,8 @@ static inline uint16_t mavlink_msg_simba_heartbeat_encode_status(uint8_t system_
  * @param chan MAVLink channel to send the message
  *
  * @param timestamp  Timestamp (time since system boot)
- * @param flight_computer_status  Status of computer
- * @param engine_computer_status  Status of computer
+ * @param flight_computer_status  wym. AWION-20 Status of computer
+ * @param engine_computer_status  wym. AWION-20 Status of computer
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -279,7 +279,7 @@ static inline uint64_t mavlink_msg_simba_heartbeat_get_timestamp(const mavlink_m
 /**
  * @brief Get field flight_computer_status from simba_heartbeat message
  *
- * @return  Status of computer
+ * @return  wym. AWION-20 Status of computer
  */
 static inline uint8_t mavlink_msg_simba_heartbeat_get_flight_computer_status(const mavlink_message_t* msg)
 {
@@ -289,7 +289,7 @@ static inline uint8_t mavlink_msg_simba_heartbeat_get_flight_computer_status(con
 /**
  * @brief Get field engine_computer_status from simba_heartbeat message
  *
- * @return  Status of computer
+ * @return  wym. AWION-20 Status of computer
  */
 static inline uint8_t mavlink_msg_simba_heartbeat_get_engine_computer_status(const mavlink_message_t* msg)
 {

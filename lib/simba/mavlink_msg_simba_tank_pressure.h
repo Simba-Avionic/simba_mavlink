@@ -6,15 +6,16 @@
 
 typedef struct __mavlink_simba_tank_pressure_t {
  float pressure; /*<  Pressure from tank*/
+ float Dpressure; /*<  Delta Pressure from tank*/
 } mavlink_simba_tank_pressure_t;
 
-#define MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN 4
-#define MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_MIN_LEN 4
-#define MAVLINK_MSG_ID_70_LEN 4
-#define MAVLINK_MSG_ID_70_MIN_LEN 4
+#define MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN 8
+#define MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_MIN_LEN 8
+#define MAVLINK_MSG_ID_70_LEN 8
+#define MAVLINK_MSG_ID_70_MIN_LEN 8
 
-#define MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_CRC 58
-#define MAVLINK_MSG_ID_70_CRC 58
+#define MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_CRC 84
+#define MAVLINK_MSG_ID_70_CRC 84
 
 
 
@@ -22,15 +23,17 @@ typedef struct __mavlink_simba_tank_pressure_t {
 #define MAVLINK_MESSAGE_INFO_SIMBA_TANK_PRESSURE { \
     70, \
     "SIMBA_TANK_PRESSURE", \
-    1, \
+    2, \
     {  { "pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_simba_tank_pressure_t, pressure) }, \
+         { "Dpressure", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_simba_tank_pressure_t, Dpressure) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SIMBA_TANK_PRESSURE { \
     "SIMBA_TANK_PRESSURE", \
-    1, \
+    2, \
     {  { "pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 0, offsetof(mavlink_simba_tank_pressure_t, pressure) }, \
+         { "Dpressure", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_simba_tank_pressure_t, Dpressure) }, \
          } \
 }
 #endif
@@ -42,19 +45,22 @@ typedef struct __mavlink_simba_tank_pressure_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param pressure  Pressure from tank
+ * @param Dpressure  Delta Pressure from tank
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_tank_pressure_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               float pressure)
+                               float pressure, float Dpressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN];
     _mav_put_float(buf, 0, pressure);
+    _mav_put_float(buf, 4, Dpressure);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN);
 #else
     mavlink_simba_tank_pressure_t packet;
     packet.pressure = pressure;
+    packet.Dpressure = Dpressure;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN);
 #endif
@@ -71,19 +77,22 @@ static inline uint16_t mavlink_msg_simba_tank_pressure_pack(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  *
  * @param pressure  Pressure from tank
+ * @param Dpressure  Delta Pressure from tank
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_tank_pressure_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               float pressure)
+                               float pressure, float Dpressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN];
     _mav_put_float(buf, 0, pressure);
+    _mav_put_float(buf, 4, Dpressure);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN);
 #else
     mavlink_simba_tank_pressure_t packet;
     packet.pressure = pressure;
+    packet.Dpressure = Dpressure;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN);
 #endif
@@ -103,20 +112,23 @@ static inline uint16_t mavlink_msg_simba_tank_pressure_pack_status(uint8_t syste
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param pressure  Pressure from tank
+ * @param Dpressure  Delta Pressure from tank
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_tank_pressure_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   float pressure)
+                                   float pressure,float Dpressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN];
     _mav_put_float(buf, 0, pressure);
+    _mav_put_float(buf, 4, Dpressure);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN);
 #else
     mavlink_simba_tank_pressure_t packet;
     packet.pressure = pressure;
+    packet.Dpressure = Dpressure;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN);
 #endif
@@ -135,7 +147,7 @@ static inline uint16_t mavlink_msg_simba_tank_pressure_pack_chan(uint8_t system_
  */
 static inline uint16_t mavlink_msg_simba_tank_pressure_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_simba_tank_pressure_t* simba_tank_pressure)
 {
-    return mavlink_msg_simba_tank_pressure_pack(system_id, component_id, msg, simba_tank_pressure->pressure);
+    return mavlink_msg_simba_tank_pressure_pack(system_id, component_id, msg, simba_tank_pressure->pressure, simba_tank_pressure->Dpressure);
 }
 
 /**
@@ -149,7 +161,7 @@ static inline uint16_t mavlink_msg_simba_tank_pressure_encode(uint8_t system_id,
  */
 static inline uint16_t mavlink_msg_simba_tank_pressure_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_simba_tank_pressure_t* simba_tank_pressure)
 {
-    return mavlink_msg_simba_tank_pressure_pack_chan(system_id, component_id, chan, msg, simba_tank_pressure->pressure);
+    return mavlink_msg_simba_tank_pressure_pack_chan(system_id, component_id, chan, msg, simba_tank_pressure->pressure, simba_tank_pressure->Dpressure);
 }
 
 /**
@@ -163,7 +175,7 @@ static inline uint16_t mavlink_msg_simba_tank_pressure_encode_chan(uint8_t syste
  */
 static inline uint16_t mavlink_msg_simba_tank_pressure_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_simba_tank_pressure_t* simba_tank_pressure)
 {
-    return mavlink_msg_simba_tank_pressure_pack_status(system_id, component_id, _status, msg,  simba_tank_pressure->pressure);
+    return mavlink_msg_simba_tank_pressure_pack_status(system_id, component_id, _status, msg,  simba_tank_pressure->pressure, simba_tank_pressure->Dpressure);
 }
 
 /**
@@ -171,19 +183,22 @@ static inline uint16_t mavlink_msg_simba_tank_pressure_encode_status(uint8_t sys
  * @param chan MAVLink channel to send the message
  *
  * @param pressure  Pressure from tank
+ * @param Dpressure  Delta Pressure from tank
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_simba_tank_pressure_send(mavlink_channel_t chan, float pressure)
+static inline void mavlink_msg_simba_tank_pressure_send(mavlink_channel_t chan, float pressure, float Dpressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN];
     _mav_put_float(buf, 0, pressure);
+    _mav_put_float(buf, 4, Dpressure);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE, buf, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_CRC);
 #else
     mavlink_simba_tank_pressure_t packet;
     packet.pressure = pressure;
+    packet.Dpressure = Dpressure;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE, (const char *)&packet, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_CRC);
 #endif
@@ -197,7 +212,7 @@ static inline void mavlink_msg_simba_tank_pressure_send(mavlink_channel_t chan, 
 static inline void mavlink_msg_simba_tank_pressure_send_struct(mavlink_channel_t chan, const mavlink_simba_tank_pressure_t* simba_tank_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_simba_tank_pressure_send(chan, simba_tank_pressure->pressure);
+    mavlink_msg_simba_tank_pressure_send(chan, simba_tank_pressure->pressure, simba_tank_pressure->Dpressure);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE, (const char *)simba_tank_pressure, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_CRC);
 #endif
@@ -211,16 +226,18 @@ static inline void mavlink_msg_simba_tank_pressure_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_simba_tank_pressure_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float pressure)
+static inline void mavlink_msg_simba_tank_pressure_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  float pressure, float Dpressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
     _mav_put_float(buf, 0, pressure);
+    _mav_put_float(buf, 4, Dpressure);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE, buf, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_CRC);
 #else
     mavlink_simba_tank_pressure_t *packet = (mavlink_simba_tank_pressure_t *)msgbuf;
     packet->pressure = pressure;
+    packet->Dpressure = Dpressure;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE, (const char *)packet, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_CRC);
 #endif
@@ -243,6 +260,16 @@ static inline float mavlink_msg_simba_tank_pressure_get_pressure(const mavlink_m
 }
 
 /**
+ * @brief Get field Dpressure from simba_tank_pressure message
+ *
+ * @return  Delta Pressure from tank
+ */
+static inline float mavlink_msg_simba_tank_pressure_get_Dpressure(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  4);
+}
+
+/**
  * @brief Decode a simba_tank_pressure message into a struct
  *
  * @param msg The message to decode
@@ -252,6 +279,7 @@ static inline void mavlink_msg_simba_tank_pressure_decode(const mavlink_message_
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     simba_tank_pressure->pressure = mavlink_msg_simba_tank_pressure_get_pressure(msg);
+    simba_tank_pressure->Dpressure = mavlink_msg_simba_tank_pressure_get_Dpressure(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN? msg->len : MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN;
         memset(simba_tank_pressure, 0, MAVLINK_MSG_ID_SIMBA_TANK_PRESSURE_LEN);

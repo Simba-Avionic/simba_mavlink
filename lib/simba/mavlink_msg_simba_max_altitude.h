@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE SIMBA_MAX_ALTITUDE PACKING
 
-#define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE 73
+#define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE 74
 
 
 typedef struct __mavlink_simba_max_altitude_t {
@@ -10,17 +10,17 @@ typedef struct __mavlink_simba_max_altitude_t {
 
 #define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN 4
 #define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_MIN_LEN 4
-#define MAVLINK_MSG_ID_73_LEN 4
-#define MAVLINK_MSG_ID_73_MIN_LEN 4
+#define MAVLINK_MSG_ID_74_LEN 4
+#define MAVLINK_MSG_ID_74_MIN_LEN 4
 
 #define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC 11
-#define MAVLINK_MSG_ID_73_CRC 11
+#define MAVLINK_MSG_ID_74_CRC 11
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_SIMBA_MAX_ALTITUDE { \
-    73, \
+    74, \
     "SIMBA_MAX_ALTITUDE", \
     1, \
     {  { "alt", NULL, MAVLINK_TYPE_INT32_T, 0, 0, offsetof(mavlink_simba_max_altitude_t, alt) }, \
