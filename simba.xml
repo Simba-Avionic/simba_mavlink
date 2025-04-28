@@ -61,6 +61,11 @@
             <field type="uint8_t" name="actuator_id">id device to change state</field>
             <field type="uint8_t" name="value">value to set actuator</field>
         </message>
+        <message id="148" name="SIMBA_ACK">
+            <description>Confirmation of receiving and executing commands sent from Mission Control</description>
+            <field type="uint8_t" name="msg_id">ID of command that was received</field>
+            <field type="uint8_t" name="status">Completion status</field>
+        </message>
     </messages>
 
 </mavlink>
