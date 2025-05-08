@@ -1,6 +1,14 @@
-load("//tools:mavlink_repo.bzl", "mavlink_repository")
+workspace(name="simba_mavlink")
 
-mavlink_repository(
-    name = "srp_mavlink",
-    xml = "//:simba.xml",
-)
+
+load("@simba_mavlink//:download.bzl", "download")
+download()
+
+load("@simba_mavlink//:install.bzl", "install")
+install()
+
+load("@simba_mavlink//:install_python.bzl", "install_python")
+install_python()
+
+load("@simba_mavlink//:pip_install.bzl", "pip_install")
+pip_install()
