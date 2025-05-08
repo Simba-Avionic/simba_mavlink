@@ -9,3 +9,10 @@ cc_library(
     deps = ["//test:lib"],
     srcs = ["main.cpp"],
 )
+
+cc_test(
+    name = "testsuite_mavlink",
+    deps = ["//test:lib"],
+    srcs = ["test.c"],
+    copts = [""],
+)
