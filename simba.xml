@@ -12,11 +12,23 @@
             <entry value="3" name="SIMBA_ROCKET_STATE_IGNITION" />
             <entry value="4" name="SIMBA_ROCKET_STATE_ABORTED" />
         </enum>
+        
+        <!-- Based on ErrorCode in srp -->
+        <enum name="SIMBA_STATUS">
+            <description>Completion statuses</description>
+            <entry value="0" name="SIMBA_OK" />
+            <entry value="1" name="SIMBA_NOT_DEFINED" />
+            <entry value="2" name="SIMBA_ERROR" />
+            <entry value="3" name="SIMBA_CONNECTION_ERROR" />
+            <entry value="4" name="SIMBA_INITIALIZE_ERROR" />
+            <entry value="5" name="SIMBA_BAD_VARIABLE_SIZE" />
+            <entry value="6" name="SIMBA_INVALID_STATE" />
+        </enum>
     </enums>
 
     <messages>
         <message id="68" name="SIMBA_ACTUATOR">
-            <description>Status update from actuator.</description>
+            <description>States from actuators (open/close).</description>
             <field type="uint8_t" name="values">Actuators' values - each bit represents one actuator</field>
         </message>
         <message id="69" name="SIMBA_TANK_TEMPERATURE">
@@ -32,7 +44,7 @@
         </message>
         <message id="71" name="SIMBA_ALTITUDE_ORIENTATION">
             <description>Data</description>
-            <field type="uint8_t" name="engine_computer_status"> TODO</field>
+            <field type="uint8_t" name="TODO"> TODO</field>
         </message>
         <message id="72" name="SIMBA_GPS">
             <description>wym. GSE-0</description>
@@ -43,8 +55,8 @@
         <message id="73" name="SIMBA_HEARTBEAT">
             <description></description>
             <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
-            <field type="uint8_t" name="flight_computer_status">wym. AWION-20 Status of computer</field>
-            <field type="uint8_t" name="engine_computer_status">wym. AWION-20 Status of computer</field>
+            <field type="uint8_t" name="flight_computer_status" enum="SIMBA_STATUS">wym. AWION-20 Status of computer</field>
+            <field type="uint8_t" name="engine_computer_status" enum="SIMBA_STATUS">wym. AWION-20 Status of computer</field>
         </message>
         <message id="74" name="SIMBA_MAX_ALTITUDE">
             <description>wym. GSE-2</description>
@@ -62,7 +74,7 @@
         <message id="148" name="SIMBA_ACK">
             <description>Confirmation of receiving and executing commands sent from Mission Control</description>
             <field type="uint8_t" name="state" enum="SIMBA_ROCKET_STATE">Current rocket state</field>
-            <field type="uint8_t" name="status">Completion status</field>
+            <field type="uint8_t" name="status" enum="SIMBA_STATUS">Completion status</field>
         </message>
     </messages>
 
