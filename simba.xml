@@ -5,12 +5,30 @@
     <dialect>3</dialect>
 
     <enums>
-        <!-- Enums are defined here (optional) -->
+        <enum name="SIMBA_ROCKET_STATE">
+            <description>Rocket states</description>
+            <entry value="1" name="SIMBA_ROCKET_STATE_DISARMED" />
+            <entry value="2" name="SIMBA_ROCKET_STATE_ARMED" />
+            <entry value="3" name="SIMBA_ROCKET_STATE_IGNITION" />
+            <entry value="4" name="SIMBA_ROCKET_STATE_ABORTED" />
+        </enum>
+        
+        <!-- Based on ErrorCode in srp -->
+        <enum name="SIMBA_STATUS">
+            <description>Completion statuses</description>
+            <entry value="0" name="SIMBA_OK" />
+            <entry value="1" name="SIMBA_NOT_DEFINED" />
+            <entry value="2" name="SIMBA_ERROR" />
+            <entry value="3" name="SIMBA_CONNECTION_ERROR" />
+            <entry value="4" name="SIMBA_INITIALIZE_ERROR" />
+            <entry value="5" name="SIMBA_BAD_VARIABLE_SIZE" />
+            <entry value="6" name="SIMBA_INVALID_STATE" />
+        </enum>
     </enums>
 
     <messages>
         <message id="68" name="SIMBA_ACTUATOR">
-            <description>Status update from actuator.</description>
+            <description>States from actuators (open/close).</description>
             <field type="uint8_t" name="values">Actuators' values - each bit represents one actuator</field>
         </message>
         <message id="69" name="SIMBA_TANK_TEMPERATURE">
@@ -22,11 +40,11 @@
         <message id="70" name="SIMBA_TANK_PRESSURE">
             <description>wym GSE-1 Readings from tank pressure sensor.</description>
             <field type="float" name="pressure">Pressure from tank</field>
-            <field type="float" name="Dpressure">Delta Pressure from tank</field>
+            <field type="float" name="d_pressure">Delta Pressure from tank</field>
         </message>
         <message id="71" name="SIMBA_ALTITUDE_ORIENTATION">
             <description>Data</description>
-            <field type="uint8_t" name="engine_computer_status"> TODO</field>
+            <field type="uint8_t" name="TODO"> TODO</field>
         </message>
         <message id="72" name="SIMBA_GPS">
             <description>wym. GSE-0</description>
@@ -37,24 +55,16 @@
         <message id="73" name="SIMBA_HEARTBEAT">
             <description></description>
             <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
-            <field type="uint8_t" name="flight_computer_status">wym. AWION-20 Status of computer</field>
-            <field type="uint8_t" name="engine_computer_status">wym. AWION-20 Status of computer</field>
+            <field type="uint8_t" name="flight_computer_status" enum="SIMBA_STATUS">wym. AWION-20 Status of computer</field>
+            <field type="uint8_t" name="engine_computer_status" enum="SIMBA_STATUS">wym. AWION-20 Status of computer</field>
         </message>
         <message id="74" name="SIMBA_MAX_ALTITUDE">
             <description>wym. GSE-2</description>
             <field type="int32_t" name="alt">Max altitude</field>
         </message>
-        <message id="144" name="SIMBA_CMD_HOLD">
-            <description>wym. GSE-5 Change Rocket state to HOLD</description>
-            <field type="uint8_t" name="value">Ignoring field</field>
-        </message>
-        <message id="145" name="SIMBA_CMD_ABORT">
-            <description>wym. GSE-4</description>
-            <field type="uint8_t" name="value">Ignoring field</field>
-        </message>
-        <message id="146" name="SIMBA_CMD_CHANGE">
+        <message id="146" name="SIMBA_CMD_CHANGE_STATE">
             <description></description>
-            <field type="uint8_t" name="cmd_change">Command</field>
+            <field type="uint8_t" name="new_state" enum="SIMBA_ROCKET_STATE">New rocket state</field>
         </message>
         <message id="147" name="SIMBA_ACTUATOR_CMD">
             <description>wym. GSE-3, wym. AWION-21</description>
@@ -63,9 +73,8 @@
         </message>
         <message id="148" name="SIMBA_ACK">
             <description>Confirmation of receiving and executing commands sent from Mission Control</description>
-            <field type="uint8_t" name="msg_id">ID of command that was received</field>
-            <field type="uint8_t" name="msg_seq">SEQ of command that was received</field>
-            <field type="uint8_t" name="status">Completion status</field>
+            <field type="uint8_t" name="state" enum="SIMBA_ROCKET_STATE">Current rocket state</field>
+            <field type="uint8_t" name="status" enum="SIMBA_STATUS">Completion status</field>
         </message>
     </messages>
 
