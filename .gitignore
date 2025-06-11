@@ -35,3 +35,5 @@ bazel-bin
 bazel-out
 bazel-testlogs
 bazel-simba_mavlink
+.venv
+pymavlink

@@ -5,7 +5,7 @@
 
 
 typedef struct __mavlink_simba_altitude_orientation_t {
- uint8_t engine_computer_status; /*<   TODO*/
+ uint8_t TODO; /*<   TODO*/
 } mavlink_simba_altitude_orientation_t;
 
 #define MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN 1
@@ -13,8 +13,8 @@ typedef struct __mavlink_simba_altitude_orientation_t {
 #define MAVLINK_MSG_ID_71_LEN 1
 #define MAVLINK_MSG_ID_71_MIN_LEN 1
 
-#define MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_CRC 209
-#define MAVLINK_MSG_ID_71_CRC 209
+#define MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_CRC 8
+#define MAVLINK_MSG_ID_71_CRC 8
 
 
 
@@ -23,14 +23,14 @@ typedef struct __mavlink_simba_altitude_orientation_t {
     71, \
     "SIMBA_ALTITUDE_ORIENTATION", \
     1, \
-    {  { "engine_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_altitude_orientation_t, engine_computer_status) }, \
+    {  { "TODO", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_altitude_orientation_t, TODO) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SIMBA_ALTITUDE_ORIENTATION { \
     "SIMBA_ALTITUDE_ORIENTATION", \
     1, \
-    {  { "engine_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_altitude_orientation_t, engine_computer_status) }, \
+    {  { "TODO", NULL, MAVLINK_TYPE_UINT8_T, 0, 0, offsetof(mavlink_simba_altitude_orientation_t, TODO) }, \
          } \
 }
 #endif
@@ -41,20 +41,20 @@ typedef struct __mavlink_simba_altitude_orientation_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param engine_computer_status   TODO
+ * @param TODO   TODO
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_altitude_orientation_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t engine_computer_status)
+                               uint8_t TODO)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN];
-    _mav_put_uint8_t(buf, 0, engine_computer_status);
+    _mav_put_uint8_t(buf, 0, TODO);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN);
 #else
     mavlink_simba_altitude_orientation_t packet;
-    packet.engine_computer_status = engine_computer_status;
+    packet.TODO = TODO;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN);
 #endif
@@ -70,20 +70,20 @@ static inline uint16_t mavlink_msg_simba_altitude_orientation_pack(uint8_t syste
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param engine_computer_status   TODO
+ * @param TODO   TODO
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_altitude_orientation_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint8_t engine_computer_status)
+                               uint8_t TODO)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN];
-    _mav_put_uint8_t(buf, 0, engine_computer_status);
+    _mav_put_uint8_t(buf, 0, TODO);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN);
 #else
     mavlink_simba_altitude_orientation_t packet;
-    packet.engine_computer_status = engine_computer_status;
+    packet.TODO = TODO;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN);
 #endif
@@ -102,21 +102,21 @@ static inline uint16_t mavlink_msg_simba_altitude_orientation_pack_status(uint8_
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param engine_computer_status   TODO
+ * @param TODO   TODO
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_altitude_orientation_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t engine_computer_status)
+                                   uint8_t TODO)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN];
-    _mav_put_uint8_t(buf, 0, engine_computer_status);
+    _mav_put_uint8_t(buf, 0, TODO);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN);
 #else
     mavlink_simba_altitude_orientation_t packet;
-    packet.engine_computer_status = engine_computer_status;
+    packet.TODO = TODO;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN);
 #endif
@@ -135,7 +135,7 @@ static inline uint16_t mavlink_msg_simba_altitude_orientation_pack_chan(uint8_t 
  */
 static inline uint16_t mavlink_msg_simba_altitude_orientation_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_simba_altitude_orientation_t* simba_altitude_orientation)
 {
-    return mavlink_msg_simba_altitude_orientation_pack(system_id, component_id, msg, simba_altitude_orientation->engine_computer_status);
+    return mavlink_msg_simba_altitude_orientation_pack(system_id, component_id, msg, simba_altitude_orientation->TODO);
 }
 
 /**
@@ -149,7 +149,7 @@ static inline uint16_t mavlink_msg_simba_altitude_orientation_encode(uint8_t sys
  */
 static inline uint16_t mavlink_msg_simba_altitude_orientation_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_simba_altitude_orientation_t* simba_altitude_orientation)
 {
-    return mavlink_msg_simba_altitude_orientation_pack_chan(system_id, component_id, chan, msg, simba_altitude_orientation->engine_computer_status);
+    return mavlink_msg_simba_altitude_orientation_pack_chan(system_id, component_id, chan, msg, simba_altitude_orientation->TODO);
 }
 
 /**
@@ -163,27 +163,27 @@ static inline uint16_t mavlink_msg_simba_altitude_orientation_encode_chan(uint8_
  */
 static inline uint16_t mavlink_msg_simba_altitude_orientation_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_simba_altitude_orientation_t* simba_altitude_orientation)
 {
-    return mavlink_msg_simba_altitude_orientation_pack_status(system_id, component_id, _status, msg,  simba_altitude_orientation->engine_computer_status);
+    return mavlink_msg_simba_altitude_orientation_pack_status(system_id, component_id, _status, msg,  simba_altitude_orientation->TODO);
 }
 
 /**
  * @brief Send a simba_altitude_orientation message
  * @param chan MAVLink channel to send the message
  *
- * @param engine_computer_status   TODO
+ * @param TODO   TODO
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_simba_altitude_orientation_send(mavlink_channel_t chan, uint8_t engine_computer_status)
+static inline void mavlink_msg_simba_altitude_orientation_send(mavlink_channel_t chan, uint8_t TODO)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN];
-    _mav_put_uint8_t(buf, 0, engine_computer_status);
+    _mav_put_uint8_t(buf, 0, TODO);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION, buf, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_CRC);
 #else
     mavlink_simba_altitude_orientation_t packet;
-    packet.engine_computer_status = engine_computer_status;
+    packet.TODO = TODO;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION, (const char *)&packet, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_CRC);
 #endif
@@ -197,7 +197,7 @@ static inline void mavlink_msg_simba_altitude_orientation_send(mavlink_channel_t
 static inline void mavlink_msg_simba_altitude_orientation_send_struct(mavlink_channel_t chan, const mavlink_simba_altitude_orientation_t* simba_altitude_orientation)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_simba_altitude_orientation_send(chan, simba_altitude_orientation->engine_computer_status);
+    mavlink_msg_simba_altitude_orientation_send(chan, simba_altitude_orientation->TODO);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION, (const char *)simba_altitude_orientation, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_CRC);
 #endif
@@ -211,16 +211,16 @@ static inline void mavlink_msg_simba_altitude_orientation_send_struct(mavlink_ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_simba_altitude_orientation_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t engine_computer_status)
+static inline void mavlink_msg_simba_altitude_orientation_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t TODO)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-    _mav_put_uint8_t(buf, 0, engine_computer_status);
+    _mav_put_uint8_t(buf, 0, TODO);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION, buf, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_CRC);
 #else
     mavlink_simba_altitude_orientation_t *packet = (mavlink_simba_altitude_orientation_t *)msgbuf;
-    packet->engine_computer_status = engine_computer_status;
+    packet->TODO = TODO;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION, (const char *)packet, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_CRC);
 #endif
@@ -233,11 +233,11 @@ static inline void mavlink_msg_simba_altitude_orientation_send_buf(mavlink_messa
 
 
 /**
- * @brief Get field engine_computer_status from simba_altitude_orientation message
+ * @brief Get field TODO from simba_altitude_orientation message
  *
  * @return   TODO
  */
-static inline uint8_t mavlink_msg_simba_altitude_orientation_get_engine_computer_status(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_simba_altitude_orientation_get_TODO(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  0);
 }
@@ -251,7 +251,7 @@ static inline uint8_t mavlink_msg_simba_altitude_orientation_get_engine_computer
 static inline void mavlink_msg_simba_altitude_orientation_decode(const mavlink_message_t* msg, mavlink_simba_altitude_orientation_t* simba_altitude_orientation)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    simba_altitude_orientation->engine_computer_status = mavlink_msg_simba_altitude_orientation_get_engine_computer_status(msg);
+    simba_altitude_orientation->TODO = mavlink_msg_simba_altitude_orientation_get_TODO(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN? msg->len : MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN;
         memset(simba_altitude_orientation, 0, MAVLINK_MSG_ID_SIMBA_ALTITUDE_ORIENTATION_LEN);
