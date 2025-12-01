@@ -1,12 +1,14 @@
 #pragma once
 // MESSAGE SIMBA_ACTUATOR_CMD PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_SIMBA_ACTUATOR_CMD 147
 
 
 typedef struct __mavlink_simba_actuator_cmd_t {
- uint8_t actuator_id; /*<  id device to change state*/
- uint8_t value; /*<  value to set actuator*/
+ uint8_t actuator_id; /*<  Actuator ID*/
+ uint8_t value; /*<  New actuator value*/
 } mavlink_simba_actuator_cmd_t;
 
 #define MAVLINK_MSG_ID_SIMBA_ACTUATOR_CMD_LEN 2
@@ -44,8 +46,8 @@ typedef struct __mavlink_simba_actuator_cmd_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param actuator_id  id device to change state
- * @param value  value to set actuator
+ * @param actuator_id  Actuator ID
+ * @param value  New actuator value
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_actuator_cmd_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -76,8 +78,8 @@ static inline uint16_t mavlink_msg_simba_actuator_cmd_pack(uint8_t system_id, ui
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param actuator_id  id device to change state
- * @param value  value to set actuator
+ * @param actuator_id  Actuator ID
+ * @param value  New actuator value
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_actuator_cmd_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
@@ -111,8 +113,8 @@ static inline uint16_t mavlink_msg_simba_actuator_cmd_pack_status(uint8_t system
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param actuator_id  id device to change state
- * @param value  value to set actuator
+ * @param actuator_id  Actuator ID
+ * @param value  New actuator value
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_actuator_cmd_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -182,8 +184,8 @@ static inline uint16_t mavlink_msg_simba_actuator_cmd_encode_status(uint8_t syst
  * @brief Send a simba_actuator_cmd message
  * @param chan MAVLink channel to send the message
  *
- * @param actuator_id  id device to change state
- * @param value  value to set actuator
+ * @param actuator_id  Actuator ID
+ * @param value  New actuator value
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -252,7 +254,7 @@ static inline void mavlink_msg_simba_actuator_cmd_send_buf(mavlink_message_t *ms
 /**
  * @brief Get field actuator_id from simba_actuator_cmd message
  *
- * @return  id device to change state
+ * @return  Actuator ID
  */
 static inline uint8_t mavlink_msg_simba_actuator_cmd_get_actuator_id(const mavlink_message_t* msg)
 {
@@ -262,7 +264,7 @@ static inline uint8_t mavlink_msg_simba_actuator_cmd_get_actuator_id(const mavli
 /**
  * @brief Get field value from simba_actuator_cmd message
  *
- * @return  value to set actuator
+ * @return  New actuator value
  */
 static inline uint8_t mavlink_msg_simba_actuator_cmd_get_value(const mavlink_message_t* msg)
 {

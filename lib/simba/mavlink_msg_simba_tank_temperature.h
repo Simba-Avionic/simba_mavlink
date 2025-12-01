@@ -1,13 +1,15 @@
 #pragma once
 // MESSAGE SIMBA_TANK_TEMPERATURE PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE 69
 
 
 typedef struct __mavlink_simba_tank_temperature_t {
- uint16_t temp1; /*<  Temperature from tank*/
- uint16_t temp2; /*<  Temperature from tank*/
- uint16_t temp3; /*<  Temperature from tank*/
+ int16_t temp1; /*<  Upper tank temperature*/
+ int16_t temp2; /*<  Middle tank temperature*/
+ int16_t temp3; /*<  Lower tank temperature*/
 } mavlink_simba_tank_temperature_t;
 
 #define MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN 6
@@ -15,8 +17,8 @@ typedef struct __mavlink_simba_tank_temperature_t {
 #define MAVLINK_MSG_ID_69_LEN 6
 #define MAVLINK_MSG_ID_69_MIN_LEN 6
 
-#define MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_CRC 97
-#define MAVLINK_MSG_ID_69_CRC 97
+#define MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_CRC 30
+#define MAVLINK_MSG_ID_69_CRC 30
 
 
 
@@ -25,18 +27,18 @@ typedef struct __mavlink_simba_tank_temperature_t {
     69, \
     "SIMBA_TANK_TEMPERATURE", \
     3, \
-    {  { "temp1", NULL, MAVLINK_TYPE_UINT16_T, 0, 0, offsetof(mavlink_simba_tank_temperature_t, temp1) }, \
-         { "temp2", NULL, MAVLINK_TYPE_UINT16_T, 0, 2, offsetof(mavlink_simba_tank_temperature_t, temp2) }, \
-         { "temp3", NULL, MAVLINK_TYPE_UINT16_T, 0, 4, offsetof(mavlink_simba_tank_temperature_t, temp3) }, \
+    {  { "temp1", NULL, MAVLINK_TYPE_INT16_T, 0, 0, offsetof(mavlink_simba_tank_temperature_t, temp1) }, \
+         { "temp2", NULL, MAVLINK_TYPE_INT16_T, 0, 2, offsetof(mavlink_simba_tank_temperature_t, temp2) }, \
+         { "temp3", NULL, MAVLINK_TYPE_INT16_T, 0, 4, offsetof(mavlink_simba_tank_temperature_t, temp3) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SIMBA_TANK_TEMPERATURE { \
     "SIMBA_TANK_TEMPERATURE", \
     3, \
-    {  { "temp1", NULL, MAVLINK_TYPE_UINT16_T, 0, 0, offsetof(mavlink_simba_tank_temperature_t, temp1) }, \
-         { "temp2", NULL, MAVLINK_TYPE_UINT16_T, 0, 2, offsetof(mavlink_simba_tank_temperature_t, temp2) }, \
-         { "temp3", NULL, MAVLINK_TYPE_UINT16_T, 0, 4, offsetof(mavlink_simba_tank_temperature_t, temp3) }, \
+    {  { "temp1", NULL, MAVLINK_TYPE_INT16_T, 0, 0, offsetof(mavlink_simba_tank_temperature_t, temp1) }, \
+         { "temp2", NULL, MAVLINK_TYPE_INT16_T, 0, 2, offsetof(mavlink_simba_tank_temperature_t, temp2) }, \
+         { "temp3", NULL, MAVLINK_TYPE_INT16_T, 0, 4, offsetof(mavlink_simba_tank_temperature_t, temp3) }, \
          } \
 }
 #endif
@@ -47,19 +49,19 @@ typedef struct __mavlink_simba_tank_temperature_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param temp1  Temperature from tank
- * @param temp2  Temperature from tank
- * @param temp3  Temperature from tank
+ * @param temp1  Upper tank temperature
+ * @param temp2  Middle tank temperature
+ * @param temp3  Lower tank temperature
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_tank_temperature_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint16_t temp1, uint16_t temp2, uint16_t temp3)
+                               int16_t temp1, int16_t temp2, int16_t temp3)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN];
-    _mav_put_uint16_t(buf, 0, temp1);
-    _mav_put_uint16_t(buf, 2, temp2);
-    _mav_put_uint16_t(buf, 4, temp3);
+    _mav_put_int16_t(buf, 0, temp1);
+    _mav_put_int16_t(buf, 2, temp2);
+    _mav_put_int16_t(buf, 4, temp3);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN);
 #else
@@ -82,19 +84,19 @@ static inline uint16_t mavlink_msg_simba_tank_temperature_pack(uint8_t system_id
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param temp1  Temperature from tank
- * @param temp2  Temperature from tank
- * @param temp3  Temperature from tank
+ * @param temp1  Upper tank temperature
+ * @param temp2  Middle tank temperature
+ * @param temp3  Lower tank temperature
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_tank_temperature_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint16_t temp1, uint16_t temp2, uint16_t temp3)
+                               int16_t temp1, int16_t temp2, int16_t temp3)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN];
-    _mav_put_uint16_t(buf, 0, temp1);
-    _mav_put_uint16_t(buf, 2, temp2);
-    _mav_put_uint16_t(buf, 4, temp3);
+    _mav_put_int16_t(buf, 0, temp1);
+    _mav_put_int16_t(buf, 2, temp2);
+    _mav_put_int16_t(buf, 4, temp3);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN);
 #else
@@ -120,20 +122,20 @@ static inline uint16_t mavlink_msg_simba_tank_temperature_pack_status(uint8_t sy
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param temp1  Temperature from tank
- * @param temp2  Temperature from tank
- * @param temp3  Temperature from tank
+ * @param temp1  Upper tank temperature
+ * @param temp2  Middle tank temperature
+ * @param temp3  Lower tank temperature
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_tank_temperature_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint16_t temp1,uint16_t temp2,uint16_t temp3)
+                                   int16_t temp1,int16_t temp2,int16_t temp3)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN];
-    _mav_put_uint16_t(buf, 0, temp1);
-    _mav_put_uint16_t(buf, 2, temp2);
-    _mav_put_uint16_t(buf, 4, temp3);
+    _mav_put_int16_t(buf, 0, temp1);
+    _mav_put_int16_t(buf, 2, temp2);
+    _mav_put_int16_t(buf, 4, temp3);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN);
 #else
@@ -194,19 +196,19 @@ static inline uint16_t mavlink_msg_simba_tank_temperature_encode_status(uint8_t 
  * @brief Send a simba_tank_temperature message
  * @param chan MAVLink channel to send the message
  *
- * @param temp1  Temperature from tank
- * @param temp2  Temperature from tank
- * @param temp3  Temperature from tank
+ * @param temp1  Upper tank temperature
+ * @param temp2  Middle tank temperature
+ * @param temp3  Lower tank temperature
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_simba_tank_temperature_send(mavlink_channel_t chan, uint16_t temp1, uint16_t temp2, uint16_t temp3)
+static inline void mavlink_msg_simba_tank_temperature_send(mavlink_channel_t chan, int16_t temp1, int16_t temp2, int16_t temp3)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN];
-    _mav_put_uint16_t(buf, 0, temp1);
-    _mav_put_uint16_t(buf, 2, temp2);
-    _mav_put_uint16_t(buf, 4, temp3);
+    _mav_put_int16_t(buf, 0, temp1);
+    _mav_put_int16_t(buf, 2, temp2);
+    _mav_put_int16_t(buf, 4, temp3);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE, buf, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_CRC);
 #else
@@ -241,13 +243,13 @@ static inline void mavlink_msg_simba_tank_temperature_send_struct(mavlink_channe
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_simba_tank_temperature_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint16_t temp1, uint16_t temp2, uint16_t temp3)
+static inline void mavlink_msg_simba_tank_temperature_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  int16_t temp1, int16_t temp2, int16_t temp3)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-    _mav_put_uint16_t(buf, 0, temp1);
-    _mav_put_uint16_t(buf, 2, temp2);
-    _mav_put_uint16_t(buf, 4, temp3);
+    _mav_put_int16_t(buf, 0, temp1);
+    _mav_put_int16_t(buf, 2, temp2);
+    _mav_put_int16_t(buf, 4, temp3);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE, buf, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_LEN, MAVLINK_MSG_ID_SIMBA_TANK_TEMPERATURE_CRC);
 #else
@@ -269,31 +271,31 @@ static inline void mavlink_msg_simba_tank_temperature_send_buf(mavlink_message_t
 /**
  * @brief Get field temp1 from simba_tank_temperature message
  *
- * @return  Temperature from tank
+ * @return  Upper tank temperature
  */
-static inline uint16_t mavlink_msg_simba_tank_temperature_get_temp1(const mavlink_message_t* msg)
+static inline int16_t mavlink_msg_simba_tank_temperature_get_temp1(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  0);
+    return _MAV_RETURN_int16_t(msg,  0);
 }
 
 /**
  * @brief Get field temp2 from simba_tank_temperature message
  *
- * @return  Temperature from tank
+ * @return  Middle tank temperature
  */
-static inline uint16_t mavlink_msg_simba_tank_temperature_get_temp2(const mavlink_message_t* msg)
+static inline int16_t mavlink_msg_simba_tank_temperature_get_temp2(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  2);
+    return _MAV_RETURN_int16_t(msg,  2);
 }
 
 /**
  * @brief Get field temp3 from simba_tank_temperature message
  *
- * @return  Temperature from tank
+ * @return  Lower tank temperature
  */
-static inline uint16_t mavlink_msg_simba_tank_temperature_get_temp3(const mavlink_message_t* msg)
+static inline int16_t mavlink_msg_simba_tank_temperature_get_temp3(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  4);
+    return _MAV_RETURN_int16_t(msg,  4);
 }
 
 /**

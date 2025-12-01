@@ -1,11 +1,13 @@
 #pragma once
 // MESSAGE SIMBA_CMD_CHANGE_STATE PACKING
 
+#include <stdint.h>
+
 #define MAVLINK_MSG_ID_SIMBA_CMD_CHANGE_STATE 146
 
 
 typedef struct __mavlink_simba_cmd_change_state_t {
- uint8_t new_state; /*<  New rocket state*/
+ uint8_t new_state; /*<  New rocket state command*/
 } mavlink_simba_cmd_change_state_t;
 
 #define MAVLINK_MSG_ID_SIMBA_CMD_CHANGE_STATE_LEN 1
@@ -41,7 +43,7 @@ typedef struct __mavlink_simba_cmd_change_state_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param new_state  New rocket state
+ * @param new_state  New rocket state command
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_change_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -70,7 +72,7 @@ static inline uint16_t mavlink_msg_simba_cmd_change_state_pack(uint8_t system_id
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param new_state  New rocket state
+ * @param new_state  New rocket state command
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_change_state_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
@@ -102,7 +104,7 @@ static inline uint16_t mavlink_msg_simba_cmd_change_state_pack_status(uint8_t sy
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param new_state  New rocket state
+ * @param new_state  New rocket state command
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_cmd_change_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -170,7 +172,7 @@ static inline uint16_t mavlink_msg_simba_cmd_change_state_encode_status(uint8_t 
  * @brief Send a simba_cmd_change_state message
  * @param chan MAVLink channel to send the message
  *
- * @param new_state  New rocket state
+ * @param new_state  New rocket state command
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -235,7 +237,7 @@ static inline void mavlink_msg_simba_cmd_change_state_send_buf(mavlink_message_t
 /**
  * @brief Get field new_state from simba_cmd_change_state message
  *
- * @return  New rocket state
+ * @return  New rocket state command
  */
 static inline uint8_t mavlink_msg_simba_cmd_change_state_get_new_state(const mavlink_message_t* msg)
 {
