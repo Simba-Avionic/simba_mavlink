@@ -1,19 +1,24 @@
 <?xml version="1.0"?>
 <mavlink>
-
-    <!-- <version>9</version> -->
+    <version>1</version>
     <dialect>3</dialect>
 
     <enums>
         <enum name="SIMBA_ROCKET_STATE">
             <description>Rocket states</description>
-            <entry value="1" name="SIMBA_ROCKET_STATE_DISARMED" />
-            <entry value="2" name="SIMBA_ROCKET_STATE_ARMED" />
-            <entry value="3" name="SIMBA_ROCKET_STATE_IGNITION" />
-            <entry value="4" name="SIMBA_ROCKET_STATE_ABORTED" />
+
+            <entry value="1" name="SIMBA_ROCKET_STATE_DISARM" />
+            <entry value="2" name="SIMBA_ROCKET_STATE_ARM" />
+            <entry value="3" name="SIMBA_ROCKET_STATE_LAUNCH" />
+            <entry value="4" name="SIMBA_ROCKET_STATE_ABORT" />
+
+            <!-- States below are only for ground segment information -->
+            <entry value="11" name="SIMBA_ROCKET_STATE_FLY" />
+            <entry value="12" name="SIMBA_ROCKET_STATE_MAIN_PARACHUTE_TRIGGERED" />
+            <entry value="13" name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_TRIGGERED" />
         </enum>
         
-        <!-- Based on ErrorCode in srp -->
+        <!-- Generic internal completion/error codes -->
         <enum name="SIMBA_STATUS">
             <description>Completion statuses</description>
             <entry value="0" name="SIMBA_OK" />
@@ -24,58 +29,97 @@
             <entry value="5" name="SIMBA_BAD_VARIABLE_SIZE" />
             <entry value="6" name="SIMBA_INVALID_STATE" />
         </enum>
+
+        <enum name="SIMBA_ACTUATOR_FLAGS" bitmask="true">
+            <entry value="1" name="MAIN_VALVE" />
+            <entry value="2" name="VENT_VALVE" />
+            <entry value="4" name="DUMP_VALVE" />
+            <entry value="8" name="RECOVERY_SERVO" />
+            <entry value="16" name="RECOVERY_LINECUTTER" />
+        </enum>
+        <enum name="SIMBA_GS_ACTUATOR_FLAGS" bitmask="true">
+            <entry value="1" name="VENT_VALVE" />
+            <entry value="2" name="DUMP_VALVE" />
+            <entry value="4" name="ARM" />  <!-- 0 on this beat mean DISARM-->
+        </enum>
     </enums>
 
     <messages>
-        <message id="68" name="SIMBA_ACTUATOR">
-            <description>States from actuators (open/close).</description>
-            <field type="uint8_t" name="values">Actuators' values - each bit represents one actuator</field>
-        </message>
         <message id="69" name="SIMBA_TANK_TEMPERATURE">
-            <description>wym. GSE-1 Readings from tank temperature sensors.</description>
-            <field type="uint16_t" name="temp1">Temperature from tank</field>
-            <field type="uint16_t" name="temp2">Temperature from tank</field>
-            <field type="uint16_t" name="temp3">Temperature from tank</field>
+            <description>Tank temperature sensor readings.</description>
+            <!-- temp = float * 100 -->
+            <field type="int16_t" name="temp1">Upper tank temperature</field>
+            <field type="int16_t" name="temp2">Middle tank temperature</field>
+            <field type="int16_t" name="temp3">Lower tank temperature</field>
         </message>
+
         <message id="70" name="SIMBA_TANK_PRESSURE">
-            <description>wym GSE-1 Readings from tank pressure sensor.</description>
-            <field type="float" name="pressure">Pressure from tank</field>
-            <field type="float" name="d_pressure">Delta Pressure from tank</field>
+            <description>Tank pressure sensor reading.</description>
+            <!-- pressure = float * 100 -->
+            <field type="uint16_t" name="pressure">Tank pressure</field>
         </message>
-        <message id="71" name="SIMBA_ALTITUDE_ORIENTATION">
-            <description>Data</description>
-            <field type="uint8_t" name="TODO"> TODO</field>
+
+        <message id="71" name="SIMBA_IMU">
+            <description>IMU data (scaled float → int16_t)</description>
+            <field type="uint64_t" name="timestamp">Timestamp [ms]</field>
+
+            <!-- Accelerometer values (scaled)  acc_g / 0.0005f -->
+            <field type="int16_t" name="acc_x">Acceleration X (scaled)</field>
+            <field type="int16_t" name="acc_y">Acceleration Y (scaled)</field>
+            <field type="int16_t" name="acc_z">Acceleration Z (scaled)</field>
+
+            <!-- Gyroscope values (scaled)  gyro_dps / 0.1f -->
+            <field type="int16_t" name="gyro_x">Gyroscope X (scaled)</field>
+            <field type="int16_t" name="gyro_y">Gyroscope Y (scaled)</field>
+            <field type="int16_t" name="gyro_z">Gyroscope Z (scaled)</field>
+
+            <!-- Orientation (scaled)  roll / 0.01f -->
+            <field type="int16_t" name="roll">Roll angle (scaled)</field>
+            <field type="int16_t" name="pitch">Pitch angle (scaled)</field>
+            <field type="int16_t" name="yaw">Yaw angle (scaled)</field>
+
+            <!-- Barometric altitude NOT SCALED-->
+            <field type="int32_t" name="altitude">Altitude (scaled) [cm]</field>
         </message>
+
         <message id="72" name="SIMBA_GPS">
-            <description>wym. GSE-0</description>
-            <field type="int32_t" name="lat">Latitude</field>
-            <field type="int32_t" name="lon">Longitude</field>
-            <field type="int32_t" name="alt">Altitude</field>
+            <description>GPS latitude, longitude and altitude.</description>
+            <field type="int32_t" name="lat">Latitude (1E7 * degrees)</field>
+            <field type="int32_t" name="lon">Longitude (1E7 * degrees)</field>
+            <field type="int32_t" name="altitude">Altitude (scaled) [cm]</field>
         </message>
-        <message id="73" name="SIMBA_HEARTBEAT">
-            <description></description>
-            <field type="uint64_t" name="timestamp">Timestamp (time since system boot)</field>
-            <field type="uint8_t" name="flight_computer_status" enum="SIMBA_STATUS">wym. AWION-20 Status of computer</field>
-            <field type="uint8_t" name="engine_computer_status" enum="SIMBA_STATUS">wym. AWION-20 Status of computer</field>
+
+        <message id="73" name="SIMBA_ROCKET_HEARTBEAT">
+            <description>Rocket heartbeat message sent during whole mission.</description>
+            <field type="uint64_t" name="timestamp">Timestamp (system uptime in ms)</field>
+            <field type="uint8_t" name="rocket_state" enum="SIMBA_ROCKET_STATE">Current rocket state</field>
+            <field type="uint8_t" name="flight_computer_status" enum="SIMBA_STATUS">Flight computer status</field>
+            <field type="uint8_t" name="engine_computer_status" enum="SIMBA_STATUS">Engine computer status</field>
+            <field type="uint8_t" name="values" enum="SIMBA_ACTUATOR_FLAGS">Actuator bitmask</field>
         </message>
-        <message id="74" name="SIMBA_MAX_ALTITUDE">
-            <description>wym. GSE-2</description>
-            <field type="int32_t" name="alt">Max altitude</field>
+
+        <message id="74" name="SIMBA_GS_HEARTBEAT">
+            <description>Ground station heartbeat.</description>
+            <field type="uint64_t" name="timestamp">Timestamp (system uptime in ms)</field>
+            <field type="uint8_t" name="values" enum="SIMBA_GS_ACTUATOR_FLAGS">GS buttons bitmask </field>
         </message>
+
+        <message id="75" name="SIMBA_MAX_ALTITUDE">
+            <description>Barometric maximum altitude</description>
+            <field type="int32_t" name="altitude"> Altitude (scaled) [cm] </field>
+        </message>
+
         <message id="146" name="SIMBA_CMD_CHANGE_STATE">
-            <description></description>
-            <field type="uint8_t" name="new_state" enum="SIMBA_ROCKET_STATE">New rocket state</field>
+            <description>Command to change rocket state (DISARM, ARM, LAUNCH, ABORT).</description>
+            <field type="uint8_t" name="new_state" enum="SIMBA_ROCKET_STATE">New rocket state command</field>
         </message>
+
         <message id="147" name="SIMBA_ACTUATOR_CMD">
-            <description>wym. GSE-3, wym. AWION-21</description>
-            <field type="uint8_t" name="actuator_id">id device to change state</field>
-            <field type="uint8_t" name="value">value to set actuator</field>
+            <description>Direct actuator command (for testing; DO NOT USE IN PRODUCTION).</description>
+            <field type="uint8_t" name="actuator_id">Actuator ID</field>
+            <field type="uint8_t" name="value">New actuator value</field>
         </message>
-        <message id="148" name="SIMBA_ACK">
-            <description>Confirmation of receiving and executing commands sent from Mission Control</description>
-            <field type="uint8_t" name="state" enum="SIMBA_ROCKET_STATE">Current rocket state</field>
-            <field type="uint8_t" name="status" enum="SIMBA_STATUS">Completion status</field>
-        </message>
+
     </messages>
 
 </mavlink>
