@@ -1,36 +1,38 @@
 #pragma once
 // MESSAGE SIMBA_MAX_ALTITUDE PACKING
 
-#define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE 74
+#include <stdint.h>
+
+#define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE 75
 
 
 typedef struct __mavlink_simba_max_altitude_t {
- int32_t alt; /*<  Max altitude*/
+ int32_t altitude; /*<   Altitude (scaled) [cm] */
 } mavlink_simba_max_altitude_t;
 
 #define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN 4
 #define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_MIN_LEN 4
-#define MAVLINK_MSG_ID_74_LEN 4
-#define MAVLINK_MSG_ID_74_MIN_LEN 4
+#define MAVLINK_MSG_ID_75_LEN 4
+#define MAVLINK_MSG_ID_75_MIN_LEN 4
 
-#define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC 11
-#define MAVLINK_MSG_ID_74_CRC 11
+#define MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC 84
+#define MAVLINK_MSG_ID_75_CRC 84
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_SIMBA_MAX_ALTITUDE { \
-    74, \
+    75, \
     "SIMBA_MAX_ALTITUDE", \
     1, \
-    {  { "alt", NULL, MAVLINK_TYPE_INT32_T, 0, 0, offsetof(mavlink_simba_max_altitude_t, alt) }, \
+    {  { "altitude", NULL, MAVLINK_TYPE_INT32_T, 0, 0, offsetof(mavlink_simba_max_altitude_t, altitude) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SIMBA_MAX_ALTITUDE { \
     "SIMBA_MAX_ALTITUDE", \
     1, \
-    {  { "alt", NULL, MAVLINK_TYPE_INT32_T, 0, 0, offsetof(mavlink_simba_max_altitude_t, alt) }, \
+    {  { "altitude", NULL, MAVLINK_TYPE_INT32_T, 0, 0, offsetof(mavlink_simba_max_altitude_t, altitude) }, \
          } \
 }
 #endif
@@ -41,20 +43,20 @@ typedef struct __mavlink_simba_max_altitude_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param alt  Max altitude
+ * @param altitude   Altitude (scaled) [cm] 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_max_altitude_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               int32_t alt)
+                               int32_t altitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN];
-    _mav_put_int32_t(buf, 0, alt);
+    _mav_put_int32_t(buf, 0, altitude);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN);
 #else
     mavlink_simba_max_altitude_t packet;
-    packet.alt = alt;
+    packet.altitude = altitude;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN);
 #endif
@@ -70,20 +72,20 @@ static inline uint16_t mavlink_msg_simba_max_altitude_pack(uint8_t system_id, ui
  * @param status MAVLink status structure
  * @param msg The MAVLink message to compress the data into
  *
- * @param alt  Max altitude
+ * @param altitude   Altitude (scaled) [cm] 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_max_altitude_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               int32_t alt)
+                               int32_t altitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN];
-    _mav_put_int32_t(buf, 0, alt);
+    _mav_put_int32_t(buf, 0, altitude);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN);
 #else
     mavlink_simba_max_altitude_t packet;
-    packet.alt = alt;
+    packet.altitude = altitude;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN);
 #endif
@@ -102,21 +104,21 @@ static inline uint16_t mavlink_msg_simba_max_altitude_pack_status(uint8_t system
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param alt  Max altitude
+ * @param altitude   Altitude (scaled) [cm] 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_max_altitude_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   int32_t alt)
+                                   int32_t altitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN];
-    _mav_put_int32_t(buf, 0, alt);
+    _mav_put_int32_t(buf, 0, altitude);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN);
 #else
     mavlink_simba_max_altitude_t packet;
-    packet.alt = alt;
+    packet.altitude = altitude;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN);
 #endif
@@ -135,7 +137,7 @@ static inline uint16_t mavlink_msg_simba_max_altitude_pack_chan(uint8_t system_i
  */
 static inline uint16_t mavlink_msg_simba_max_altitude_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_simba_max_altitude_t* simba_max_altitude)
 {
-    return mavlink_msg_simba_max_altitude_pack(system_id, component_id, msg, simba_max_altitude->alt);
+    return mavlink_msg_simba_max_altitude_pack(system_id, component_id, msg, simba_max_altitude->altitude);
 }
 
 /**
@@ -149,7 +151,7 @@ static inline uint16_t mavlink_msg_simba_max_altitude_encode(uint8_t system_id, 
  */
 static inline uint16_t mavlink_msg_simba_max_altitude_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_simba_max_altitude_t* simba_max_altitude)
 {
-    return mavlink_msg_simba_max_altitude_pack_chan(system_id, component_id, chan, msg, simba_max_altitude->alt);
+    return mavlink_msg_simba_max_altitude_pack_chan(system_id, component_id, chan, msg, simba_max_altitude->altitude);
 }
 
 /**
@@ -163,27 +165,27 @@ static inline uint16_t mavlink_msg_simba_max_altitude_encode_chan(uint8_t system
  */
 static inline uint16_t mavlink_msg_simba_max_altitude_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_simba_max_altitude_t* simba_max_altitude)
 {
-    return mavlink_msg_simba_max_altitude_pack_status(system_id, component_id, _status, msg,  simba_max_altitude->alt);
+    return mavlink_msg_simba_max_altitude_pack_status(system_id, component_id, _status, msg,  simba_max_altitude->altitude);
 }
 
 /**
  * @brief Send a simba_max_altitude message
  * @param chan MAVLink channel to send the message
  *
- * @param alt  Max altitude
+ * @param altitude   Altitude (scaled) [cm] 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_simba_max_altitude_send(mavlink_channel_t chan, int32_t alt)
+static inline void mavlink_msg_simba_max_altitude_send(mavlink_channel_t chan, int32_t altitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN];
-    _mav_put_int32_t(buf, 0, alt);
+    _mav_put_int32_t(buf, 0, altitude);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE, buf, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC);
 #else
     mavlink_simba_max_altitude_t packet;
-    packet.alt = alt;
+    packet.altitude = altitude;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE, (const char *)&packet, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC);
 #endif
@@ -197,7 +199,7 @@ static inline void mavlink_msg_simba_max_altitude_send(mavlink_channel_t chan, i
 static inline void mavlink_msg_simba_max_altitude_send_struct(mavlink_channel_t chan, const mavlink_simba_max_altitude_t* simba_max_altitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_simba_max_altitude_send(chan, simba_max_altitude->alt);
+    mavlink_msg_simba_max_altitude_send(chan, simba_max_altitude->altitude);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE, (const char *)simba_max_altitude, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC);
 #endif
@@ -211,16 +213,16 @@ static inline void mavlink_msg_simba_max_altitude_send_struct(mavlink_channel_t 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_simba_max_altitude_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  int32_t alt)
+static inline void mavlink_msg_simba_max_altitude_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  int32_t altitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
-    _mav_put_int32_t(buf, 0, alt);
+    _mav_put_int32_t(buf, 0, altitude);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE, buf, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC);
 #else
     mavlink_simba_max_altitude_t *packet = (mavlink_simba_max_altitude_t *)msgbuf;
-    packet->alt = alt;
+    packet->altitude = altitude;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE, (const char *)packet, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_MIN_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_CRC);
 #endif
@@ -233,11 +235,11 @@ static inline void mavlink_msg_simba_max_altitude_send_buf(mavlink_message_t *ms
 
 
 /**
- * @brief Get field alt from simba_max_altitude message
+ * @brief Get field altitude from simba_max_altitude message
  *
- * @return  Max altitude
+ * @return   Altitude (scaled) [cm] 
  */
-static inline int32_t mavlink_msg_simba_max_altitude_get_alt(const mavlink_message_t* msg)
+static inline int32_t mavlink_msg_simba_max_altitude_get_altitude(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg,  0);
 }
@@ -251,7 +253,7 @@ static inline int32_t mavlink_msg_simba_max_altitude_get_alt(const mavlink_messa
 static inline void mavlink_msg_simba_max_altitude_decode(const mavlink_message_t* msg, mavlink_simba_max_altitude_t* simba_max_altitude)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    simba_max_altitude->alt = mavlink_msg_simba_max_altitude_get_alt(msg);
+    simba_max_altitude->altitude = mavlink_msg_simba_max_altitude_get_altitude(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN? msg->len : MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN;
         memset(simba_max_altitude, 0, MAVLINK_MSG_ID_SIMBA_MAX_ALTITUDE_LEN);
