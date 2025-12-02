@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_SIMBA.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_SIMBA_XML_HASH -5801814247086570818
+#define MAVLINK_SIMBA_XML_HASH 2119715355029561416
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,11 +70,11 @@ typedef enum SIMBA_STATUS
 #define HAVE_ENUM_SIMBA_ACTUATOR_FLAGS
 typedef enum SIMBA_ACTUATOR_FLAGS
 {
-   MAIN_VALVE=1, /*  | */
-   VENT_VALVE=2, /*  | */
-   DUMP_VALVE=4, /*  | */
-   RECOVERY_SERVO=8, /*  | */
-   RECOVERY_LINECUTTER=16, /*  | */
+   SIMBA_ROCKET_MAIN_VALVE=1, /*  | */
+   SIMBA_ROCKET_VENT_VALVE=2, /*  | */
+   SIMBA_ROCKET_DUMP_VALVE=4, /*  | */
+   SIMBA_ROCKET_RECOVERY_SERVO=8, /*  | */
+   SIMBA_ROCKET_RECOVERY_LINECUTTER=16, /*  | */
    SIMBA_ACTUATOR_FLAGS_ENUM_END=17, /*  | */
 } SIMBA_ACTUATOR_FLAGS;
 #endif
@@ -84,9 +84,9 @@ typedef enum SIMBA_ACTUATOR_FLAGS
 #define HAVE_ENUM_SIMBA_GS_ACTUATOR_FLAGS
 typedef enum SIMBA_GS_ACTUATOR_FLAGS
 {
-   VENT_VALVE=1, /*  | */
-   DUMP_VALVE=2, /*  | */
-   ARM=4, /*  | */
+   SIMBA_GS_VENT_VALVE=1, /*  | */
+   SIMBA_GS_DUMP_VALVE=2, /*  | */
+   SIMBA_GS_ARM=4, /*  | */
    SIMBA_GS_ACTUATOR_FLAGS_ENUM_END=5, /*  | */
 } SIMBA_GS_ACTUATOR_FLAGS;
 #endif

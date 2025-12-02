@@ -31,16 +31,16 @@
         </enum>
 
         <enum name="SIMBA_ACTUATOR_FLAGS" bitmask="true">
-            <entry value="1" name="MAIN_VALVE" />
-            <entry value="2" name="VENT_VALVE" />
-            <entry value="4" name="DUMP_VALVE" />
-            <entry value="8" name="RECOVERY_SERVO" />
-            <entry value="16" name="RECOVERY_LINECUTTER" />
+            <entry value="1" name="SIMBA_ROCKET_MAIN_VALVE" />
+            <entry value="2" name="SIMBA_ROCKET_VENT_VALVE" />
+            <entry value="4" name="SIMBA_ROCKET_DUMP_VALVE" />
+            <entry value="8" name="SIMBA_ROCKET_RECOVERY_SERVO" />
+            <entry value="16" name="SIMBA_ROCKET_RECOVERY_LINECUTTER" />
         </enum>
         <enum name="SIMBA_GS_ACTUATOR_FLAGS" bitmask="true">
-            <entry value="1" name="VENT_VALVE" />
-            <entry value="2" name="DUMP_VALVE" />
-            <entry value="4" name="ARM" />  <!-- 0 on this beat mean DISARM-->
+            <entry value="1" name="SIMBA_GS_VENT_VALVE" />
+            <entry value="2" name="SIMBA_GS_DUMP_VALVE" />
+            <entry value="4" name="SIMBA_GS_ARM" />  <!-- 0 on this beat mean DISARM-->
         </enum>
     </enums>
 
