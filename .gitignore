@@ -7,3 +7,5 @@ bazel-out
 bazel-testlogs
 bazel-simba_mavlink
 MODULE.bazel.lock
+pymavlink/**
+.venv
