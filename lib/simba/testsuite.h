@@ -41,9 +41,9 @@ static void mavlink_test_simba_tank_temperature(uint8_t system_id, uint8_t compo
     };
     mavlink_simba_tank_temperature_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
-        packet1.temp1 = packet_in.temp1;
-        packet1.temp2 = packet_in.temp2;
-        packet1.temp3 = packet_in.temp3;
+        packet1.upper_tank = packet_in.upper_tank;
+        packet1.middle_tank = packet_in.middle_tank;
+        packet1.lower_tank = packet_in.lower_tank;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -58,12 +58,12 @@ static void mavlink_test_simba_tank_temperature(uint8_t system_id, uint8_t compo
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_tank_temperature_pack(system_id, component_id, &msg , packet1.temp1 , packet1.temp2 , packet1.temp3 );
+    mavlink_msg_simba_tank_temperature_pack(system_id, component_id, &msg , packet1.upper_tank , packet1.middle_tank , packet1.lower_tank );
     mavlink_msg_simba_tank_temperature_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_tank_temperature_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.temp1 , packet1.temp2 , packet1.temp3 );
+    mavlink_msg_simba_tank_temperature_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.upper_tank , packet1.middle_tank , packet1.lower_tank );
     mavlink_msg_simba_tank_temperature_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -76,7 +76,7 @@ static void mavlink_test_simba_tank_temperature(uint8_t system_id, uint8_t compo
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_tank_temperature_send(MAVLINK_COMM_1 , packet1.temp1 , packet1.temp2 , packet1.temp3 );
+    mavlink_msg_simba_tank_temperature_send(MAVLINK_COMM_1 , packet1.upper_tank , packet1.middle_tank , packet1.lower_tank );
     mavlink_msg_simba_tank_temperature_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -287,11 +287,13 @@ static void mavlink_test_simba_rocket_heartbeat(uint8_t system_id, uint8_t compo
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_simba_rocket_heartbeat_t packet_in = {
-        93372036854775807ULL,29,96,163,230
+        93372036854775807ULL,17651,17755,41,108,175,242
     };
     mavlink_simba_rocket_heartbeat_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.timestamp = packet_in.timestamp;
+        packet1.eb_temp = packet_in.eb_temp;
+        packet1.mb_temp = packet_in.mb_temp;
         packet1.rocket_state = packet_in.rocket_state;
         packet1.flight_computer_status = packet_in.flight_computer_status;
         packet1.engine_computer_status = packet_in.engine_computer_status;
@@ -310,12 +312,12 @@ static void mavlink_test_simba_rocket_heartbeat(uint8_t system_id, uint8_t compo
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_rocket_heartbeat_pack(system_id, component_id, &msg , packet1.timestamp , packet1.rocket_state , packet1.flight_computer_status , packet1.engine_computer_status , packet1.values );
+    mavlink_msg_simba_rocket_heartbeat_pack(system_id, component_id, &msg , packet1.timestamp , packet1.rocket_state , packet1.flight_computer_status , packet1.engine_computer_status , packet1.values , packet1.eb_temp , packet1.mb_temp );
     mavlink_msg_simba_rocket_heartbeat_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_rocket_heartbeat_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.rocket_state , packet1.flight_computer_status , packet1.engine_computer_status , packet1.values );
+    mavlink_msg_simba_rocket_heartbeat_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.rocket_state , packet1.flight_computer_status , packet1.engine_computer_status , packet1.values , packet1.eb_temp , packet1.mb_temp );
     mavlink_msg_simba_rocket_heartbeat_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -328,7 +330,7 @@ static void mavlink_test_simba_rocket_heartbeat(uint8_t system_id, uint8_t compo
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_rocket_heartbeat_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.rocket_state , packet1.flight_computer_status , packet1.engine_computer_status , packet1.values );
+    mavlink_msg_simba_rocket_heartbeat_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.rocket_state , packet1.flight_computer_status , packet1.engine_computer_status , packet1.values , packet1.eb_temp , packet1.mb_temp );
     mavlink_msg_simba_rocket_heartbeat_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -457,65 +459,6 @@ static void mavlink_test_simba_max_altitude(uint8_t system_id, uint8_t component
 #endif
 }
 
-static void mavlink_test_simba_cmd_change_state(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
-{
-#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
-    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
-        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_SIMBA_CMD_CHANGE_STATE >= 256) {
-            return;
-        }
-#endif
-    mavlink_message_t msg;
-        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
-        uint16_t i;
-    mavlink_simba_cmd_change_state_t packet_in = {
-        5
-    };
-    mavlink_simba_cmd_change_state_t packet1, packet2;
-        memset(&packet1, 0, sizeof(packet1));
-        packet1.new_state = packet_in.new_state;
-        
-        
-#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
-        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
-           // cope with extensions
-           memset(MAVLINK_MSG_ID_SIMBA_CMD_CHANGE_STATE_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_SIMBA_CMD_CHANGE_STATE_MIN_LEN);
-        }
-#endif
-        memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_cmd_change_state_encode(system_id, component_id, &msg, &packet1);
-    mavlink_msg_simba_cmd_change_state_decode(&msg, &packet2);
-        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
-
-        memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_cmd_change_state_pack(system_id, component_id, &msg , packet1.new_state );
-    mavlink_msg_simba_cmd_change_state_decode(&msg, &packet2);
-        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
-
-        memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_cmd_change_state_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.new_state );
-    mavlink_msg_simba_cmd_change_state_decode(&msg, &packet2);
-        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
-
-        memset(&packet2, 0, sizeof(packet2));
-        mavlink_msg_to_send_buffer(buffer, &msg);
-        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
-            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
-        }
-    mavlink_msg_simba_cmd_change_state_decode(last_msg, &packet2);
-        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
-        
-        memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_simba_cmd_change_state_send(MAVLINK_COMM_1 , packet1.new_state );
-    mavlink_msg_simba_cmd_change_state_decode(last_msg, &packet2);
-        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
-
-#ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
-    MAVLINK_ASSERT(mavlink_get_message_info_by_name("SIMBA_CMD_CHANGE_STATE") != NULL);
-    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_SIMBA_CMD_CHANGE_STATE) != NULL);
-#endif
-}
-
 static void mavlink_test_simba_actuator_cmd(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -585,7 +528,6 @@ static void mavlink_test_simba(uint8_t system_id, uint8_t component_id, mavlink_
     mavlink_test_simba_rocket_heartbeat(system_id, component_id, last_msg);
     mavlink_test_simba_gs_heartbeat(system_id, component_id, last_msg);
     mavlink_test_simba_max_altitude(system_id, component_id, last_msg);
-    mavlink_test_simba_cmd_change_state(system_id, component_id, last_msg);
     mavlink_test_simba_actuator_cmd(system_id, component_id, last_msg);
 }
 
