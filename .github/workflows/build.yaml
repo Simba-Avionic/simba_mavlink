@@ -26,11 +26,11 @@ jobs:
       - name: Generate Files
         run: |
           python3 -m pymavlink.tools.mavgen --lang=C --wire-protocol=1.0 \
-                      --output=lib ./simba.xml  --strict-units
+                      --output=simba_mavlink/lib ./simba.xml  --strict-units
       
       - name: Create Zip
         run: |
-          zip -r simba_mavlink.zip lib
+          zip -r simba_mavlink.zip simba_mavlink
           
       - name: Release
         uses: softprops/action-gh-release@v2
