@@ -36,21 +36,27 @@
             <entry value="4" name="SIMBA_ROCKET_DUMP_VALVE" />
             <entry value="8" name="SIMBA_ROCKET_RECOVERY_SERVO" />
             <entry value="16" name="SIMBA_ROCKET_RECOVERY_LINECUTTER" />
+            <entry value="32" name="SIMBA_ROCKET_CAMERAS_ENABLED" />
         </enum>
-        <enum name="SIMBA_GS_ACTUATOR_FLAGS" bitmask="true">
-            <entry value="1" name="SIMBA_GS_VENT_VALVE" />
-            <entry value="2" name="SIMBA_GS_DUMP_VALVE" />
-            <entry value="4" name="SIMBA_GS_ARM" />  <!-- 0 on this beat mean DISARM-->
+
+        <enum name="SIMBA_GS_FLAGS" bitmask="true">
+            <entry value="1" name="SIMBA_GS_ARM" />  <!-- 0 on this beat mean DISARM-->
+            <entry value="2" name="SIMBA_GS_LAUNCH" />
+            <entry value="4" name="SIMBA_GS_ABORT" />
+            <entry value="8" name="SIMBA_GS_VENT_VALVE" />
+            <entry value="16" name="SIMBA_GS_DUMP_VALVE" />
+            <entry value="32" name="SIMBA_GS_CAMERAS" />
         </enum>
+        
     </enums>
 
     <messages>
         <message id="69" name="SIMBA_TANK_TEMPERATURE">
             <description>Tank temperature sensor readings.</description>
             <!-- temp = float * 100 -->
-            <field type="int16_t" name="temp1">Upper tank temperature</field>
-            <field type="int16_t" name="temp2">Middle tank temperature</field>
-            <field type="int16_t" name="temp3">Lower tank temperature</field>
+            <field type="int16_t" name="upper_tank">Upper tank temperature</field>
+            <field type="int16_t" name="middle_tank">Middle tank temperature</field>
+            <field type="int16_t" name="lower_tank">Lower tank temperature</field>
         </message>
 
         <message id="70" name="SIMBA_TANK_PRESSURE">
@@ -96,22 +102,19 @@
             <field type="uint8_t" name="flight_computer_status" enum="SIMBA_STATUS">Flight computer status</field>
             <field type="uint8_t" name="engine_computer_status" enum="SIMBA_STATUS">Engine computer status</field>
             <field type="uint8_t" name="values" enum="SIMBA_ACTUATOR_FLAGS">Actuator bitmask</field>
+            <field type="int16_t" name="eb_temp">Mean Engine Computer temperature</field>
+            <field type="int16_t" name="mb_temp">Mean Main Computer temperature</field>
         </message>
 
         <message id="74" name="SIMBA_GS_HEARTBEAT">
             <description>Ground station heartbeat.</description>
             <field type="uint64_t" name="timestamp">Timestamp (system uptime in ms)</field>
-            <field type="uint8_t" name="values" enum="SIMBA_GS_ACTUATOR_FLAGS">GS buttons bitmask </field>
+            <field type="uint8_t" name="values" enum="SIMBA_GS_FLAGS">GS buttons bitmask</field>
         </message>
 
         <message id="75" name="SIMBA_MAX_ALTITUDE">
             <description>Barometric maximum altitude</description>
             <field type="int32_t" name="altitude"> Altitude (scaled) [cm] </field>
-        </message>
-
-        <message id="146" name="SIMBA_CMD_CHANGE_STATE">
-            <description>Command to change rocket state (DISARM, ARM, LAUNCH, ABORT).</description>
-            <field type="uint8_t" name="new_state" enum="SIMBA_ROCKET_STATE">New rocket state command</field>
         </message>
 
         <message id="147" name="SIMBA_ACTUATOR_CMD">

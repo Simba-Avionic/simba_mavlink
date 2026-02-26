@@ -8,19 +8,21 @@
 
 typedef struct __mavlink_simba_rocket_heartbeat_t {
  uint64_t timestamp; /*<  Timestamp (system uptime in ms)*/
+ int16_t eb_temp; /*<  Engine Computer temperature*/
+ int16_t mb_temp; /*<  Main Computer temperature*/
  uint8_t rocket_state; /*<  Current rocket state*/
  uint8_t flight_computer_status; /*<  Flight computer status*/
  uint8_t engine_computer_status; /*<  Engine computer status*/
  uint8_t values; /*<  Actuator bitmask*/
 } mavlink_simba_rocket_heartbeat_t;
 
-#define MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN 12
-#define MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_MIN_LEN 12
-#define MAVLINK_MSG_ID_73_LEN 12
-#define MAVLINK_MSG_ID_73_MIN_LEN 12
+#define MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN 16
+#define MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_MIN_LEN 16
+#define MAVLINK_MSG_ID_73_LEN 16
+#define MAVLINK_MSG_ID_73_MIN_LEN 16
 
-#define MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_CRC 209
-#define MAVLINK_MSG_ID_73_CRC 209
+#define MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_CRC 55
+#define MAVLINK_MSG_ID_73_CRC 55
 
 
 
@@ -28,23 +30,27 @@ typedef struct __mavlink_simba_rocket_heartbeat_t {
 #define MAVLINK_MESSAGE_INFO_SIMBA_ROCKET_HEARTBEAT { \
     73, \
     "SIMBA_ROCKET_HEARTBEAT", \
-    5, \
+    7, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_simba_rocket_heartbeat_t, timestamp) }, \
-         { "rocket_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 8, offsetof(mavlink_simba_rocket_heartbeat_t, rocket_state) }, \
-         { "flight_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 9, offsetof(mavlink_simba_rocket_heartbeat_t, flight_computer_status) }, \
-         { "engine_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 10, offsetof(mavlink_simba_rocket_heartbeat_t, engine_computer_status) }, \
-         { "values", NULL, MAVLINK_TYPE_UINT8_T, 0, 11, offsetof(mavlink_simba_rocket_heartbeat_t, values) }, \
+         { "rocket_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 12, offsetof(mavlink_simba_rocket_heartbeat_t, rocket_state) }, \
+         { "flight_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 13, offsetof(mavlink_simba_rocket_heartbeat_t, flight_computer_status) }, \
+         { "engine_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_simba_rocket_heartbeat_t, engine_computer_status) }, \
+         { "values", NULL, MAVLINK_TYPE_UINT8_T, 0, 15, offsetof(mavlink_simba_rocket_heartbeat_t, values) }, \
+         { "eb_temp", NULL, MAVLINK_TYPE_INT16_T, 0, 8, offsetof(mavlink_simba_rocket_heartbeat_t, eb_temp) }, \
+         { "mb_temp", NULL, MAVLINK_TYPE_INT16_T, 0, 10, offsetof(mavlink_simba_rocket_heartbeat_t, mb_temp) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SIMBA_ROCKET_HEARTBEAT { \
     "SIMBA_ROCKET_HEARTBEAT", \
-    5, \
+    7, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_simba_rocket_heartbeat_t, timestamp) }, \
-         { "rocket_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 8, offsetof(mavlink_simba_rocket_heartbeat_t, rocket_state) }, \
-         { "flight_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 9, offsetof(mavlink_simba_rocket_heartbeat_t, flight_computer_status) }, \
-         { "engine_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 10, offsetof(mavlink_simba_rocket_heartbeat_t, engine_computer_status) }, \
-         { "values", NULL, MAVLINK_TYPE_UINT8_T, 0, 11, offsetof(mavlink_simba_rocket_heartbeat_t, values) }, \
+         { "rocket_state", NULL, MAVLINK_TYPE_UINT8_T, 0, 12, offsetof(mavlink_simba_rocket_heartbeat_t, rocket_state) }, \
+         { "flight_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 13, offsetof(mavlink_simba_rocket_heartbeat_t, flight_computer_status) }, \
+         { "engine_computer_status", NULL, MAVLINK_TYPE_UINT8_T, 0, 14, offsetof(mavlink_simba_rocket_heartbeat_t, engine_computer_status) }, \
+         { "values", NULL, MAVLINK_TYPE_UINT8_T, 0, 15, offsetof(mavlink_simba_rocket_heartbeat_t, values) }, \
+         { "eb_temp", NULL, MAVLINK_TYPE_INT16_T, 0, 8, offsetof(mavlink_simba_rocket_heartbeat_t, eb_temp) }, \
+         { "mb_temp", NULL, MAVLINK_TYPE_INT16_T, 0, 10, offsetof(mavlink_simba_rocket_heartbeat_t, mb_temp) }, \
          } \
 }
 #endif
@@ -60,23 +66,29 @@ typedef struct __mavlink_simba_rocket_heartbeat_t {
  * @param flight_computer_status  Flight computer status
  * @param engine_computer_status  Engine computer status
  * @param values  Actuator bitmask
+ * @param eb_temp  Engine Computer temperature
+ * @param mb_temp  Main Computer temperature
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_rocket_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values)
+                               uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values, int16_t eb_temp, int16_t mb_temp)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint8_t(buf, 8, rocket_state);
-    _mav_put_uint8_t(buf, 9, flight_computer_status);
-    _mav_put_uint8_t(buf, 10, engine_computer_status);
-    _mav_put_uint8_t(buf, 11, values);
+    _mav_put_int16_t(buf, 8, eb_temp);
+    _mav_put_int16_t(buf, 10, mb_temp);
+    _mav_put_uint8_t(buf, 12, rocket_state);
+    _mav_put_uint8_t(buf, 13, flight_computer_status);
+    _mav_put_uint8_t(buf, 14, engine_computer_status);
+    _mav_put_uint8_t(buf, 15, values);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN);
 #else
     mavlink_simba_rocket_heartbeat_t packet;
     packet.timestamp = timestamp;
+    packet.eb_temp = eb_temp;
+    packet.mb_temp = mb_temp;
     packet.rocket_state = rocket_state;
     packet.flight_computer_status = flight_computer_status;
     packet.engine_computer_status = engine_computer_status;
@@ -101,23 +113,29 @@ static inline uint16_t mavlink_msg_simba_rocket_heartbeat_pack(uint8_t system_id
  * @param flight_computer_status  Flight computer status
  * @param engine_computer_status  Engine computer status
  * @param values  Actuator bitmask
+ * @param eb_temp  Engine Computer temperature
+ * @param mb_temp  Main Computer temperature
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_rocket_heartbeat_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values)
+                               uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values, int16_t eb_temp, int16_t mb_temp)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint8_t(buf, 8, rocket_state);
-    _mav_put_uint8_t(buf, 9, flight_computer_status);
-    _mav_put_uint8_t(buf, 10, engine_computer_status);
-    _mav_put_uint8_t(buf, 11, values);
+    _mav_put_int16_t(buf, 8, eb_temp);
+    _mav_put_int16_t(buf, 10, mb_temp);
+    _mav_put_uint8_t(buf, 12, rocket_state);
+    _mav_put_uint8_t(buf, 13, flight_computer_status);
+    _mav_put_uint8_t(buf, 14, engine_computer_status);
+    _mav_put_uint8_t(buf, 15, values);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN);
 #else
     mavlink_simba_rocket_heartbeat_t packet;
     packet.timestamp = timestamp;
+    packet.eb_temp = eb_temp;
+    packet.mb_temp = mb_temp;
     packet.rocket_state = rocket_state;
     packet.flight_computer_status = flight_computer_status;
     packet.engine_computer_status = engine_computer_status;
@@ -145,24 +163,30 @@ static inline uint16_t mavlink_msg_simba_rocket_heartbeat_pack_status(uint8_t sy
  * @param flight_computer_status  Flight computer status
  * @param engine_computer_status  Engine computer status
  * @param values  Actuator bitmask
+ * @param eb_temp  Engine Computer temperature
+ * @param mb_temp  Main Computer temperature
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_rocket_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t timestamp,uint8_t rocket_state,uint8_t flight_computer_status,uint8_t engine_computer_status,uint8_t values)
+                                   uint64_t timestamp,uint8_t rocket_state,uint8_t flight_computer_status,uint8_t engine_computer_status,uint8_t values,int16_t eb_temp,int16_t mb_temp)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint8_t(buf, 8, rocket_state);
-    _mav_put_uint8_t(buf, 9, flight_computer_status);
-    _mav_put_uint8_t(buf, 10, engine_computer_status);
-    _mav_put_uint8_t(buf, 11, values);
+    _mav_put_int16_t(buf, 8, eb_temp);
+    _mav_put_int16_t(buf, 10, mb_temp);
+    _mav_put_uint8_t(buf, 12, rocket_state);
+    _mav_put_uint8_t(buf, 13, flight_computer_status);
+    _mav_put_uint8_t(buf, 14, engine_computer_status);
+    _mav_put_uint8_t(buf, 15, values);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN);
 #else
     mavlink_simba_rocket_heartbeat_t packet;
     packet.timestamp = timestamp;
+    packet.eb_temp = eb_temp;
+    packet.mb_temp = mb_temp;
     packet.rocket_state = rocket_state;
     packet.flight_computer_status = flight_computer_status;
     packet.engine_computer_status = engine_computer_status;
@@ -185,7 +209,7 @@ static inline uint16_t mavlink_msg_simba_rocket_heartbeat_pack_chan(uint8_t syst
  */
 static inline uint16_t mavlink_msg_simba_rocket_heartbeat_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_simba_rocket_heartbeat_t* simba_rocket_heartbeat)
 {
-    return mavlink_msg_simba_rocket_heartbeat_pack(system_id, component_id, msg, simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values);
+    return mavlink_msg_simba_rocket_heartbeat_pack(system_id, component_id, msg, simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values, simba_rocket_heartbeat->eb_temp, simba_rocket_heartbeat->mb_temp);
 }
 
 /**
@@ -199,7 +223,7 @@ static inline uint16_t mavlink_msg_simba_rocket_heartbeat_encode(uint8_t system_
  */
 static inline uint16_t mavlink_msg_simba_rocket_heartbeat_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_simba_rocket_heartbeat_t* simba_rocket_heartbeat)
 {
-    return mavlink_msg_simba_rocket_heartbeat_pack_chan(system_id, component_id, chan, msg, simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values);
+    return mavlink_msg_simba_rocket_heartbeat_pack_chan(system_id, component_id, chan, msg, simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values, simba_rocket_heartbeat->eb_temp, simba_rocket_heartbeat->mb_temp);
 }
 
 /**
@@ -213,7 +237,7 @@ static inline uint16_t mavlink_msg_simba_rocket_heartbeat_encode_chan(uint8_t sy
  */
 static inline uint16_t mavlink_msg_simba_rocket_heartbeat_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_simba_rocket_heartbeat_t* simba_rocket_heartbeat)
 {
-    return mavlink_msg_simba_rocket_heartbeat_pack_status(system_id, component_id, _status, msg,  simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values);
+    return mavlink_msg_simba_rocket_heartbeat_pack_status(system_id, component_id, _status, msg,  simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values, simba_rocket_heartbeat->eb_temp, simba_rocket_heartbeat->mb_temp);
 }
 
 /**
@@ -225,23 +249,29 @@ static inline uint16_t mavlink_msg_simba_rocket_heartbeat_encode_status(uint8_t 
  * @param flight_computer_status  Flight computer status
  * @param engine_computer_status  Engine computer status
  * @param values  Actuator bitmask
+ * @param eb_temp  Engine Computer temperature
+ * @param mb_temp  Main Computer temperature
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_simba_rocket_heartbeat_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values)
+static inline void mavlink_msg_simba_rocket_heartbeat_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values, int16_t eb_temp, int16_t mb_temp)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint8_t(buf, 8, rocket_state);
-    _mav_put_uint8_t(buf, 9, flight_computer_status);
-    _mav_put_uint8_t(buf, 10, engine_computer_status);
-    _mav_put_uint8_t(buf, 11, values);
+    _mav_put_int16_t(buf, 8, eb_temp);
+    _mav_put_int16_t(buf, 10, mb_temp);
+    _mav_put_uint8_t(buf, 12, rocket_state);
+    _mav_put_uint8_t(buf, 13, flight_computer_status);
+    _mav_put_uint8_t(buf, 14, engine_computer_status);
+    _mav_put_uint8_t(buf, 15, values);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT, buf, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_CRC);
 #else
     mavlink_simba_rocket_heartbeat_t packet;
     packet.timestamp = timestamp;
+    packet.eb_temp = eb_temp;
+    packet.mb_temp = mb_temp;
     packet.rocket_state = rocket_state;
     packet.flight_computer_status = flight_computer_status;
     packet.engine_computer_status = engine_computer_status;
@@ -259,7 +289,7 @@ static inline void mavlink_msg_simba_rocket_heartbeat_send(mavlink_channel_t cha
 static inline void mavlink_msg_simba_rocket_heartbeat_send_struct(mavlink_channel_t chan, const mavlink_simba_rocket_heartbeat_t* simba_rocket_heartbeat)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_simba_rocket_heartbeat_send(chan, simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values);
+    mavlink_msg_simba_rocket_heartbeat_send(chan, simba_rocket_heartbeat->timestamp, simba_rocket_heartbeat->rocket_state, simba_rocket_heartbeat->flight_computer_status, simba_rocket_heartbeat->engine_computer_status, simba_rocket_heartbeat->values, simba_rocket_heartbeat->eb_temp, simba_rocket_heartbeat->mb_temp);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT, (const char *)simba_rocket_heartbeat, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_CRC);
 #endif
@@ -273,20 +303,24 @@ static inline void mavlink_msg_simba_rocket_heartbeat_send_struct(mavlink_channe
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_simba_rocket_heartbeat_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values)
+static inline void mavlink_msg_simba_rocket_heartbeat_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, uint8_t rocket_state, uint8_t flight_computer_status, uint8_t engine_computer_status, uint8_t values, int16_t eb_temp, int16_t mb_temp)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint8_t(buf, 8, rocket_state);
-    _mav_put_uint8_t(buf, 9, flight_computer_status);
-    _mav_put_uint8_t(buf, 10, engine_computer_status);
-    _mav_put_uint8_t(buf, 11, values);
+    _mav_put_int16_t(buf, 8, eb_temp);
+    _mav_put_int16_t(buf, 10, mb_temp);
+    _mav_put_uint8_t(buf, 12, rocket_state);
+    _mav_put_uint8_t(buf, 13, flight_computer_status);
+    _mav_put_uint8_t(buf, 14, engine_computer_status);
+    _mav_put_uint8_t(buf, 15, values);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT, buf, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_LEN, MAVLINK_MSG_ID_SIMBA_ROCKET_HEARTBEAT_CRC);
 #else
     mavlink_simba_rocket_heartbeat_t *packet = (mavlink_simba_rocket_heartbeat_t *)msgbuf;
     packet->timestamp = timestamp;
+    packet->eb_temp = eb_temp;
+    packet->mb_temp = mb_temp;
     packet->rocket_state = rocket_state;
     packet->flight_computer_status = flight_computer_status;
     packet->engine_computer_status = engine_computer_status;
@@ -319,7 +353,7 @@ static inline uint64_t mavlink_msg_simba_rocket_heartbeat_get_timestamp(const ma
  */
 static inline uint8_t mavlink_msg_simba_rocket_heartbeat_get_rocket_state(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  8);
+    return _MAV_RETURN_uint8_t(msg,  12);
 }
 
 /**
@@ -329,7 +363,7 @@ static inline uint8_t mavlink_msg_simba_rocket_heartbeat_get_rocket_state(const 
  */
 static inline uint8_t mavlink_msg_simba_rocket_heartbeat_get_flight_computer_status(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  9);
+    return _MAV_RETURN_uint8_t(msg,  13);
 }
 
 /**
@@ -339,7 +373,7 @@ static inline uint8_t mavlink_msg_simba_rocket_heartbeat_get_flight_computer_sta
  */
 static inline uint8_t mavlink_msg_simba_rocket_heartbeat_get_engine_computer_status(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  10);
+    return _MAV_RETURN_uint8_t(msg,  14);
 }
 
 /**
@@ -349,7 +383,27 @@ static inline uint8_t mavlink_msg_simba_rocket_heartbeat_get_engine_computer_sta
  */
 static inline uint8_t mavlink_msg_simba_rocket_heartbeat_get_values(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  11);
+    return _MAV_RETURN_uint8_t(msg,  15);
+}
+
+/**
+ * @brief Get field eb_temp from simba_rocket_heartbeat message
+ *
+ * @return  Engine Computer temperature
+ */
+static inline int16_t mavlink_msg_simba_rocket_heartbeat_get_eb_temp(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  8);
+}
+
+/**
+ * @brief Get field mb_temp from simba_rocket_heartbeat message
+ *
+ * @return  Main Computer temperature
+ */
+static inline int16_t mavlink_msg_simba_rocket_heartbeat_get_mb_temp(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  10);
 }
 
 /**
@@ -362,6 +416,8 @@ static inline void mavlink_msg_simba_rocket_heartbeat_decode(const mavlink_messa
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     simba_rocket_heartbeat->timestamp = mavlink_msg_simba_rocket_heartbeat_get_timestamp(msg);
+    simba_rocket_heartbeat->eb_temp = mavlink_msg_simba_rocket_heartbeat_get_eb_temp(msg);
+    simba_rocket_heartbeat->mb_temp = mavlink_msg_simba_rocket_heartbeat_get_mb_temp(msg);
     simba_rocket_heartbeat->rocket_state = mavlink_msg_simba_rocket_heartbeat_get_rocket_state(msg);
     simba_rocket_heartbeat->flight_computer_status = mavlink_msg_simba_rocket_heartbeat_get_flight_computer_status(msg);
     simba_rocket_heartbeat->engine_computer_status = mavlink_msg_simba_rocket_heartbeat_get_engine_computer_status(msg);

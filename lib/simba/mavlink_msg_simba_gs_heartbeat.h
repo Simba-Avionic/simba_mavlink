@@ -8,7 +8,7 @@
 
 typedef struct __mavlink_simba_gs_heartbeat_t {
  uint64_t timestamp; /*<  Timestamp (system uptime in ms)*/
- uint8_t values; /*<  GS buttons bitmask */
+ uint8_t values; /*<  GS buttons bitmask*/
 } mavlink_simba_gs_heartbeat_t;
 
 #define MAVLINK_MSG_ID_SIMBA_GS_HEARTBEAT_LEN 9
@@ -47,7 +47,7 @@ typedef struct __mavlink_simba_gs_heartbeat_t {
  * @param msg The MAVLink message to compress the data into
  *
  * @param timestamp  Timestamp (system uptime in ms)
- * @param values  GS buttons bitmask 
+ * @param values  GS buttons bitmask
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_gs_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -79,7 +79,7 @@ static inline uint16_t mavlink_msg_simba_gs_heartbeat_pack(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  *
  * @param timestamp  Timestamp (system uptime in ms)
- * @param values  GS buttons bitmask 
+ * @param values  GS buttons bitmask
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_gs_heartbeat_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
@@ -114,7 +114,7 @@ static inline uint16_t mavlink_msg_simba_gs_heartbeat_pack_status(uint8_t system
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
  * @param timestamp  Timestamp (system uptime in ms)
- * @param values  GS buttons bitmask 
+ * @param values  GS buttons bitmask
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_simba_gs_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -185,7 +185,7 @@ static inline uint16_t mavlink_msg_simba_gs_heartbeat_encode_status(uint8_t syst
  * @param chan MAVLink channel to send the message
  *
  * @param timestamp  Timestamp (system uptime in ms)
- * @param values  GS buttons bitmask 
+ * @param values  GS buttons bitmask
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -264,7 +264,7 @@ static inline uint64_t mavlink_msg_simba_gs_heartbeat_get_timestamp(const mavlin
 /**
  * @brief Get field values from simba_gs_heartbeat message
  *
- * @return  GS buttons bitmask 
+ * @return  GS buttons bitmask
  */
 static inline uint8_t mavlink_msg_simba_gs_heartbeat_get_values(const mavlink_message_t* msg)
 {
