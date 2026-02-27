@@ -9,3 +9,4 @@ bazel-simba_mavlink
 MODULE.bazel.lock
 pymavlink/**
 .venv
+simba_mavlink
