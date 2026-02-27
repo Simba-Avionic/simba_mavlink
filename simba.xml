@@ -40,12 +40,13 @@
         </enum>
 
         <enum name="SIMBA_GS_FLAGS" bitmask="true">
-            <entry value="1" name="SIMBA_GS_ARM" />  <!-- 0 on this beat mean DISARM-->
-            <entry value="2" name="SIMBA_GS_LAUNCH" />
-            <entry value="4" name="SIMBA_GS_ABORT" />
-            <entry value="8" name="SIMBA_GS_VENT_VALVE" />
-            <entry value="16" name="SIMBA_GS_DUMP_VALVE" />
-            <entry value="32" name="SIMBA_GS_CAMERAS" />
+            <entry value="1" name="SIMBA_GS_DISARM" />
+            <entry value="2" name="SIMBA_GS_ARM" />
+            <entry value="4" name="SIMBA_GS_LAUNCH" />
+            <entry value="8" name="SIMBA_GS_ABORT" />
+            <entry value="16" name="SIMBA_GS_VENT_VALVE" />
+            <entry value="32" name="SIMBA_GS_DUMP_VALVE" />
+            <entry value="64" name="SIMBA_GS_CAMERAS" />
         </enum>
         
     </enums>
