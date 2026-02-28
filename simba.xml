@@ -6,28 +6,19 @@
     <enums>
         <enum name="SIMBA_ROCKET_STATE">
             <description>Rocket states</description>
+            <entry value="1" name="SIMBA_ROCKET_STATE_INIT" />
+            <entry value="2" name="SIMBA_ROCKET_STATE_DISARM" />
+            <entry value="3" name="SIMBA_ROCKET_STATE_ARM" />
+            <entry value="4" name="SIMBA_ROCKET_STATE_LAUNCH" />
+            <entry value="5" name="FLIGHT" />
 
-            <entry value="1" name="SIMBA_ROCKET_STATE_DISARM" />
-            <entry value="2" name="SIMBA_ROCKET_STATE_ARM" />
-            <entry value="3" name="SIMBA_ROCKET_STATE_LAUNCH" />
-            <entry value="4" name="SIMBA_ROCKET_STATE_ABORT" />
+            <entry value="64" name="SIMBA_ROCKET_STATE_ABORT" />
 
             <!-- States below are only for ground segment information -->
-            <entry value="11" name="SIMBA_ROCKET_STATE_FLY" />
-            <entry value="12" name="SIMBA_ROCKET_STATE_MAIN_PARACHUTE_TRIGGERED" />
-            <entry value="13" name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_TRIGGERED" />
-        </enum>
-        
-        <!-- Generic internal completion/error codes -->
-        <enum name="SIMBA_STATUS">
-            <description>Completion statuses</description>
-            <entry value="0" name="SIMBA_OK" />
-            <entry value="1" name="SIMBA_NOT_DEFINED" />
-            <entry value="2" name="SIMBA_ERROR" />
-            <entry value="3" name="SIMBA_CONNECTION_ERROR" />
-            <entry value="4" name="SIMBA_INITIALIZE_ERROR" />
-            <entry value="5" name="SIMBA_BAD_VARIABLE_SIZE" />
-            <entry value="6" name="SIMBA_INVALID_STATE" />
+            <entry value="6" name="APOGEE" />
+            <entry value="7" name="FIRT_PARACHUTE_FALL" />
+            <entry value="8" name="SECOND_PARACHUTE_ACTIVATION" />
+            <entry value="9" name="SECOND_PARACHUTE_FALL" />
         </enum>
 
         <enum name="SIMBA_ACTUATOR_FLAGS" bitmask="true">
@@ -99,12 +90,9 @@
         <message id="73" name="SIMBA_ROCKET_HEARTBEAT">
             <description>Rocket heartbeat message sent during whole mission.</description>
             <field type="uint64_t" name="timestamp">Timestamp (system uptime in ms)</field>
-            <field type="uint8_t" name="rocket_state" enum="SIMBA_ROCKET_STATE">Current rocket state</field>
-            <field type="uint8_t" name="flight_computer_status" enum="SIMBA_STATUS">Flight computer status</field>
-            <field type="uint8_t" name="engine_computer_status" enum="SIMBA_STATUS">Engine computer status</field>
+            <field type="uint8_t" name="flight_computer_state" enum="SIMBA_ROCKET_STATE">Flight computer state</field>
+            <field type="uint8_t" name="engine_computer_state" enum="SIMBA_ROCKET_STATE">Engine computer state</field>
             <field type="uint8_t" name="values" enum="SIMBA_ACTUATOR_FLAGS">Actuator bitmask</field>
-            <field type="int16_t" name="eb_temp">Mean Engine Computer temperature</field>
-            <field type="int16_t" name="mb_temp">Mean Main Computer temperature</field>
         </message>
 
         <message id="74" name="SIMBA_GS_HEARTBEAT">
@@ -116,6 +104,11 @@
         <message id="75" name="SIMBA_MAX_ALTITUDE">
             <description>Barometric maximum altitude</description>
             <field type="int32_t" name="altitude"> Altitude (scaled) [cm] </field>
+        </message>
+        <message id="76" name="SIMBA_COMPUTER_TEMPERATURE">
+            <description> Rocket Computer Temperature in deg </description>
+            <field type="int16_t" name="eb_temp">Mean Engine Computer temperature</field>
+            <field type="int16_t" name="mb_temp">Mean Main Computer temperature</field>
         </message>
 
         <message id="147" name="SIMBA_ACTUATOR_CMD">
