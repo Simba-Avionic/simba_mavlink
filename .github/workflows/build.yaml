@@ -27,7 +27,7 @@ jobs:
         run: |
           python3 -m pymavlink.tools.mavgen --lang=C --wire-protocol=1.0 \
                       --output=mavlink ./simba.xml  --strict-units
-      
+          python3 -m pymavlink.tools.mavgen --lang=WLua --wire-protocol=1.0 --output=simba_mavlink_wireshark ./simba.xml
       - name: Create Zip
         run: |
           zip -r simba_mavlink.zip mavlink
@@ -40,6 +40,7 @@ jobs:
           generate_release_notes: true
           files: |
             simba_mavlink.zip
+            simba_mavlink_wireshark.lua
             simba.xml
             README.md
             

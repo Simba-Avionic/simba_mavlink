@@ -10,3 +10,4 @@ MODULE.bazel.lock
 pymavlink/**
 .venv
 simba_mavlink
+*.lua
