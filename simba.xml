@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <mavlink>
+    <include>simba_radio.xml</include>
     <version>1</version>
     <dialect>3</dialect>
 
