@@ -5,6 +5,12 @@ on:
     tags:
       - '*'
   workflow_dispatch:
+
+env:
+  MAVLINK_VERSION: "1.0"
+  DEFINITION_FILE: "simba.xml"
+  ADDITIONAL_FLAGS: "--strict-units"
+
 jobs:
   build:
     name: Build Mavlink 
@@ -25,9 +31,22 @@ jobs:
 
       - name: Generate Files
         run: |
-          python3 -m pymavlink.tools.mavgen --lang=C --wire-protocol=1.0 \
-                      --output=mavlink ./simba.xml  --strict-units
-          python3 -m pymavlink.tools.mavgen --lang=WLua --wire-protocol=1.0 --output=simba_mavlink_wireshark ./simba.xml
+          mkdir -p output/mavlink_python
+
+          LANGS=("C:mavlink" "WLua:simba_mavlink_wireshark" "Python:output/mavlink_python/simba_dialects.py")
+
+          for ENTRY in "${LANGS[@]}"; do
+            IFS=":" read -r LANG OUT <<< "$ENTRY"
+            echo "Generating MAVLink for $LANG..."
+            
+            python3 -m pymavlink.tools.mavgen \
+              --lang=$LANG \
+              --wire-protocol=${{ env.MAVLINK_VERSION }} \
+              --output=$OUT \
+              ${{ env.ADDITIONAL_FLAGS }} \
+              ${{ env.DEFINITION_FILE }}
+          done
+
       - name: Create Zip
         run: |
           zip -r simba_mavlink.zip mavlink
@@ -41,6 +60,6 @@ jobs:
           files: |
             simba_mavlink.zip
             simba_mavlink_wireshark.lua
-            simba.xml
+            output/mavlink_python/simba_dialects.py
             README.md
             
