@@ -4,11 +4,14 @@ on:
   pull_request:
     branches:
       - master
-    # types są potrzebne, aby linter PR reagował na edycję tytułu
-    types:
+    types: 
       - opened
       - edited
       - synchronize
+      - ready_for_review
+      - review_requested
+      - assigned
+      - unassigned
 
 
 jobs:
@@ -20,6 +23,24 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Check Assignee and Reviewer
+        run: |
+          PR_DATA=$(gh pr view ${{ github.event.pull_request.number }} --json assignees,reviewRequests)
+          
+          ASSIGNEES=$(echo $PR_DATA | jq '.assignees | length')
+          REVIEWERS=$(echo $PR_DATA | jq '.reviewRequests | length')
+
+          if [ "$ASSIGNEES" -eq "0" ]; then
+            echo "❌ BŁĄD: PR musi mieć przypisaną osobę (Assignee)!"
+            exit 1
+          fi
+
+          if [ "$REVIEWERS" -eq "0" ]; then
+            echo "❌ BŁĄD: PR musi mieć przynajmniej jednego Reviewera!"
+            exit 1
+          fi
+          
+          echo "✅ Walidacja osób zakończona sukcesem."
       # 1. Sprawdzenie czy tytuł PR pasuje do Twoich reguł (feat, fix, perf, cleanup)
       - name: Semantic PR Title Check
         uses: amannn/action-semantic-pull-request@v5
