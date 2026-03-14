@@ -1,0 +1,79 @@
+name: CI Validation
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: 
+      - opened
+      - edited
+      - synchronize
+      - ready_for_review
+      - review_requested
+      - assigned
+      - unassigned
+
+
+jobs:
+  validate:
+    name: Validate XML & PR Title
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check Assignee and Reviewer
+        run: |
+          PR_DATA=$(gh pr view ${{ github.event.pull_request.number }} --json assignees,reviewRequests)
+          
+          ASSIGNEES=$(echo $PR_DATA | jq '.assignees | length')
+          REVIEWERS=$(echo $PR_DATA | jq '.reviewRequests | length')
+
+          if [ "$ASSIGNEES" -eq "0" ]; then
+            echo "❌ BŁĄD: PR musi mieć przypisaną osobę (Assignee)!"
+            exit 1
+          fi
+
+          if [ "$REVIEWERS" -eq "0" ]; then
+            echo "❌ BŁĄD: PR musi mieć przynajmniej jednego Reviewera!"
+            exit 1
+          fi
+          
+          echo "✅ Walidacja osób zakończona sukcesem."
+      # 1. Sprawdzenie czy tytuł PR pasuje do Twoich reguł (feat, fix, perf, cleanup)
+      - name: Semantic PR Title Check
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Definiujemy typy, które akceptuje Twoja konfiguracja semantic-release
+          types: |
+            feat
+            fix
+            perf
+            cleanup
+            chore
+          requireScope: false
+
+      # 2. Setup pod walidację XML
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          pip install lxml
+          git clone https://github.com/ardupilot/pymavlink.git --recursive
+          pip install -r pymavlink/requirements.txt
+
+      # 3. Walidacja XML
+      - name: Validate XML with mavgen
+        run: |
+          python3 -m pymavlink.tools.mavgen \
+            --lang=C \
+            --wire-protocol=1.0 \
+            --output=temp_output \
+            --strict-units \
+            ./simba.xml
