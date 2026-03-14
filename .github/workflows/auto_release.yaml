@@ -1,4 +1,4 @@
-name: Semantic Release
+name: Semantic Release & Mavlink Build
 
 on:
   push:
@@ -31,7 +31,61 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: Build and Upload Assets
+    needs: release
+    if: needs.release.outputs.new_release_published == 'true'
+    runs-on: ubuntu-latest
+    env:
+      MAVLINK_VERSION: "1.0"
+      DEFINITION_FILE: "simba.xml"
+      ADDITIONAL_FLAGS: "--strict-units"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Requirements
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git python3-pip zip
+          git clone https://github.com/ardupilot/pymavlink.git --recursive
+          pip install lxml --break-system-packages
+          pip install -r pymavlink/requirements.txt --break-system-packages
+
+      - name: Generate MAVLink Files
+        run: |
+          mkdir -p output/mavlink_python
+          # Definiujemy wyjścia
+          # C do folderu 'mavlink_c', reszta do konkretnych plików
+          LANGS=("C:output/mavlink_c" "WLua:output/simba_mavlink_wireshark.lua" "Python:output/mavlink_python/simba_dialects.py")
+          
+          for ENTRY in "${LANGS[@]}"; do
+            IFS=":" read -r L OUT <<< "$ENTRY"
+            echo "Generating for $L..."
+            python3 -m pymavlink.tools.mavgen \
+              --lang=$L \
+              --wire-protocol=${{ env.MAVLINK_VERSION }} \
+              --output=$OUT \
+              ${{ env.ADDITIONAL_FLAGS }} \
+              ./${{ env.DEFINITION_FILE }}
+          done
+
+      - name: Create Zip Package
+        run: |
+          # Pakujemy wygenerowane nagłówki C i resztę
+          cd output && zip -r ../simba_mavlink_package.zip .
+
+      - name: Upload Assets to Release
+        uses: softprops/action-gh-release@v2
         with:
-          extra_plugins: |
-            @semantic-release/changelog
-            @semantic-release/git
+          # Używamy taga stworzonego przez poprzedni Job
+          tag_name: v${{ needs.release.outputs.new_release_version }}
+          generate_release_notes: true
+          make_latest: true
+          files: |
+            simba_mavlink_package.zip
+            output/simba_mavlink_wireshark.lua
+            output/mavlink_python/simba_dialects.py
+            ${{ env.DEFINITION_FILE }}
+            README.md

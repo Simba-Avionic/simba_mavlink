@@ -109,7 +109,7 @@
             <field type="int16_t" name="eb_temp">Mean Engine Computer temperature</field>
             <field type="int16_t" name="mb_temp">Mean Main Computer temperature</field>
         </message>
-        <message id="76" name="SIMBA_COMPUTER_USAGE">
+        <message id="77" name="SIMBA_COMPUTER_USAGE">
             <description> Rocket Computer Usage </description>
             <field type="uint8_t" name="mb_cpu_usage"> Main Computer CPU usage (0-100%)</field>
             <field type="uint8_t" name="mb_memory_usage"> Main Computer Memory usage (0-100%)</field>
