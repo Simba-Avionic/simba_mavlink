@@ -74,7 +74,7 @@ jobs:
       - name: Create Zip Package
         run: |
           # Pakujemy wygenerowane nagłówki C i resztę
-          cd output && zip -r ../simba_mavlink_package.zip .
+          cd output && zip -r ../simba_mavlink.zip .
 
       - name: Upload Assets to Release
         uses: softprops/action-gh-release@v2
@@ -84,7 +84,7 @@ jobs:
           generate_release_notes: true
           make_latest: true
           files: |
-            simba_mavlink_package.zip
+            simba_mavlink.zip
             output/simba_mavlink_wireshark.lua
             output/mavlink_python/simba_dialects.py
             ${{ env.DEFINITION_FILE }}
