@@ -11,12 +11,12 @@
             <entry value="2" name="SIMBA_ROCKET_STATE_DISARM" />
             <entry value="3" name="SIMBA_ROCKET_STATE_ARM" />
             <entry value="4" name="SIMBA_ROCKET_STATE_LAUNCH" />
-            <entry value="5" name="SIMBA_ROCKET_STATE_FLIGHT" />
-            <entry value="6" name="SIMBA_ROCKET_STATE_APOGEE" />
-            <entry value="7" name="SIMBA_ROCKET_STATE_FIRT_PARACHUTE_FALL" />
-            <entry value="8" name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_ACTIVATION" />
-            <entry value="9" name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_FALL" />
-            <entry value="64" name="SIMBA_ROCKET_STATE_SIMBA_ROCKET_STATE_ABORT" />
+            <entry value="5" name="FLIGHT" />
+            <entry value="6" name="APOGEE" />
+            <entry value="7" name="FIRT_PARACHUTE_FALL" />
+            <entry value="8" name="SECOND_PARACHUTE_ACTIVATION" />
+            <entry value="9" name="SECOND_PARACHUTE_FALL" />
+            <entry value="64" name="SIMBA_ROCKET_STATE_ABORT" />
         </enum>
 
         <enum name="SIMBA_ACTUATOR_FLAGS" bitmask="true">
