@@ -7,25 +7,25 @@
     <enums>
         <enum name="SIMBA_ROCKET_STATE">
             <description>Rocket states</description>
-            <entry value="1" name="SIMBA_ROCKET_STATE_INIT" />
-            <entry value="2" name="SIMBA_ROCKET_STATE_DISARM" />
-            <entry value="3" name="SIMBA_ROCKET_STATE_ARM" />
-            <entry value="4" name="SIMBA_ROCKET_STATE_LAUNCH" />
-            <entry value="5" name="SIMBA_ROCKET_STATE_FLIGHT" />
-            <entry value="6" name="SIMBA_ROCKET_STATE_APOGEE" />
-            <entry value="7" name="SIMBA_ROCKET_STATE_FIRT_PARACHUTE_FALL" />
-            <entry value="8" name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_ACTIVATION" />
-            <entry value="9" name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_FALL" />
-            <entry value="64" name="SIMBA_ROCKET_STATE_SIMBA_ROCKET_STATE_ABORT" />
+            <entry value="1"  name="SIMBA_ROCKET_STATE_INIT" />
+            <entry value="2"  name="SIMBA_ROCKET_STATE_DISARM" />
+            <entry value="3"  name="SIMBA_ROCKET_STATE_ARM" />
+            <entry value="4"  name="SIMBA_ROCKET_STATE_LAUNCH" />
+            <entry value="5"  name="SIMBA_ROCKET_STATE_FLIGHT" />
+            <entry value="6"  name="SIMBA_ROCKET_STATE_APOGEE" />
+            <entry value="7"  name="SIMBA_ROCKET_STATE_FIRT_PARACHUTE_FALL" />
+            <entry value="8"  name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_ACTIVATION" />
+            <entry value="9"  name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_FALL" />
+            <entry value="64" name="SIMBA_ROCKET_STATE_ABORT" />
         </enum>
 
         <enum name="SIMBA_ACTUATOR_FLAGS" bitmask="true">
-            <entry value="1" name="SIMBA_ROCKET_MAIN_VALVE" />
-            <entry value="2" name="SIMBA_ROCKET_VENT_VALVE" />
-            <entry value="4" name="SIMBA_ROCKET_DUMP_VALVE" />
-            <entry value="8" name="SIMBA_ROCKET_RECOVERY_SERVO" />
-            <entry value="16" name="SIMBA_ROCKET_RECOVERY_LINECUTTER" />
-            <entry value="32" name="SIMBA_ROCKET_CAMERAS_ENABLED" />
+            <entry value="1"  name="SIMBA_ACTUATOR_FLAGS_MAIN_VALVE" />
+            <entry value="2"  name="SIMBA_ACTUATOR_FLAGS_VENT_VALVE" />
+            <entry value="4"  name="SIMBA_ACTUATOR_FLAGS_DUMP_VALVE" />
+            <entry value="8"  name="SIMBA_ACTUATOR_FLAGS_RECOVERY_SERVO" />
+            <entry value="16" name="SIMBA_ACTUATOR_FLAGS_RECOVERY_LINECUTTER" />
+            <entry value="32" name="SIMBA_ACTUATOR_FLAGS_CAMERAS_ENABLED" />
         </enum>
 
         <enum name="SIMBA_PRIMER_STATE">
@@ -37,13 +37,13 @@
         </enum>
 
         <enum name="SIMBA_GS_FLAGS" bitmask="true">
-            <entry value="1" name="SIMBA_GS_DISARM" />
-            <entry value="2" name="SIMBA_GS_ARM" />
-            <entry value="4" name="SIMBA_GS_LAUNCH" />
-            <entry value="8" name="SIMBA_GS_ABORT" />
-            <entry value="16" name="SIMBA_GS_VENT_VALVE" />
-            <entry value="32" name="SIMBA_GS_DUMP_VALVE" />
-            <entry value="64" name="SIMBA_GS_CAMERAS" />
+            <entry value="1"  name="SIMBA_GS_FLAGS_DISARM" />
+            <entry value="2"  name="SIMBA_GS_FLAGS_ARM" />
+            <entry value="4"  name="SIMBA_GS_FLAGS_LAUNCH" />
+            <entry value="8"  name="SSIMBA_GS_FLAGS_ABORT" />
+            <entry value="16" name="SIMBA_GS_FLAGS_VENT_VALVE" />
+            <entry value="32" name="SIMBA_GS_FLAGS_DUMP_VALVE" />
+            <entry value="64" name="SIMBA_GS_FLAGS_CAMERAS" />
         </enum>
         
     </enums>
