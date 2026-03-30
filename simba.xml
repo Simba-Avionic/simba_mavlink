@@ -59,7 +59,7 @@
 
         <message id="70" name="SIMBA_TANK_PRESSURE">
             <description>Tank pressure sensor reading.</description>
-            <!-- pressure = float * 10 -->
+            <!-- pressure = float * 100 -->
             <field type="uint16_t" name="pressure">Tank pressure</field>
         </message>
 
