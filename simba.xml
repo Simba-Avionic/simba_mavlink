@@ -28,6 +28,14 @@
             <entry value="32" name="SIMBA_ROCKET_CAMERAS_ENABLED" />
         </enum>
 
+        <enum name="SIMBA_PRIMER_STATE">
+            <entry value="0" name="SIMBA_PRIMER_STATE_UNKNOWN" />
+            <entry value="1" name="SIMBA_PRIMER_STATE_NOT_CONNECTED" />
+            <entry value="2" name="SIMBA_PRIMER_STATE_CONNECTED" />
+            <entry value="3" name="SIMBA_PRIMER_STATE_SHORT_CIRCUIT" />
+            <entry value="4" name="SIMBA_PRIMER_STATE_FIRED" />
+        </enum>
+
         <enum name="SIMBA_GS_FLAGS" bitmask="true">
             <entry value="1" name="SIMBA_GS_DISARM" />
             <entry value="2" name="SIMBA_GS_ARM" />
@@ -91,6 +99,7 @@
             <field type="uint8_t" name="flight_computer_state" enum="SIMBA_ROCKET_STATE">Flight computer state</field>
             <field type="uint8_t" name="engine_computer_state" enum="SIMBA_ROCKET_STATE">Engine computer state</field>
             <field type="uint8_t" name="values" enum="SIMBA_ACTUATOR_FLAGS">Actuator bitmask</field>
+            <field type="uint8_t" name="primer_state" enum="SIMBA_PRIMER_STATE">Primer State</field>
         </message>
 
         <message id="74" name="SIMBA_GS_HEARTBEAT">
@@ -103,12 +112,14 @@
             <description>Barometric maximum altitude</description>
             <field type="int32_t" name="altitude"> Altitude (scaled) [cm] </field>
         </message>
+
         <message id="76" name="SIMBA_COMPUTER_TEMPERATURE">
             <description> Rocket Computer Temperature in deg </description>
             <!-- temp = float * 10 -->
             <field type="int16_t" name="eb_temp">Mean Engine Computer temperature</field>
             <field type="int16_t" name="mb_temp">Mean Main Computer temperature</field>
         </message>
+
         <message id="77" name="SIMBA_COMPUTER_USAGE">
             <description> Rocket Computer Usage </description>
             <field type="uint8_t" name="mb_cpu_usage"> Main Computer CPU usage (0-100%)</field>
@@ -116,6 +127,7 @@
             <field type="uint8_t" name="eb_cpu_usage"> Engine Computer CPU usage (0-100%)</field>
             <field type="uint8_t" name="eb_memory_usage"> Engine Computer Memory usage (0-100%)</field>
         </message>
+
         <message id="147" name="SIMBA_ACTUATOR_CMD">
             <description>Direct actuator command (for testing; DO NOT USE IN PRODUCTION).</description>
             <field type="uint8_t" name="actuator_id">Actuator ID</field>
