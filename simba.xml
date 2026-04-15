@@ -13,9 +13,10 @@
             <entry value="4"  name="SIMBA_ROCKET_STATE_LAUNCH" />
             <entry value="5"  name="SIMBA_ROCKET_STATE_FLIGHT" />
             <entry value="6"  name="SIMBA_ROCKET_STATE_APOGEE" />
-            <entry value="7"  name="SIMBA_ROCKET_STATE_FIRT_PARACHUTE_FALL" />
-            <entry value="8"  name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_ACTIVATION" />
-            <entry value="9"  name="SIMBA_ROCKET_STATE_SECOND_PARACHUTE_FALL" />
+            <entry value="7"  name="SIMBA_ROCKET_STATE_DESCENT_PILOT" />
+            <entry value="8"  name="SIMBA_ROCKET_STATE_SEC_PARACHUTE" />
+            <entry value="9"  name="SIMBA_ROCKET_STATE_DESCENT_MAIN" />
+            <entry value="10" name="SIMBA_ROCKET_STATE_TOUCHDOWN" />
             <entry value="64" name="SIMBA_ROCKET_STATE_ABORT" />
         </enum>
 
@@ -40,25 +41,45 @@
             <entry value="1"  name="SIMBA_GS_FLAGS_DISARM" />
             <entry value="2"  name="SIMBA_GS_FLAGS_ARM" />
             <entry value="4"  name="SIMBA_GS_FLAGS_LAUNCH" />
-            <entry value="8"  name="SSIMBA_GS_FLAGS_ABORT" />
+            <entry value="8"  name="SIMBA_GS_FLAGS_ABORT" />
             <entry value="16" name="SIMBA_GS_FLAGS_VENT_VALVE" />
             <entry value="32" name="SIMBA_GS_FLAGS_DUMP_VALVE" />
             <entry value="64" name="SIMBA_GS_FLAGS_CAMERAS" />
         </enum>
+
+        <enum name="SIMBA_ROCKET_SERVICE" bitmask="true">
+            <entry value="1"          name="SIMBA_ROCKET_SERVICE_EC_TIMESTAMP_MW" />
+            <entry value="2"          name="SIMBA_ROCKET_SERVICE_EC_I2C_MW" />
+            <entry value="4"          name="SIMBA_ROCKET_SERVICE_EC_GPIO_MW" />
+            <entry value="8"          name="SIMBA_ROCKET_SERVICE_EC_TEMP_MW" />
+            <entry value="16"         name="SIMBA_ROCKET_SERVICE_EC_SERVO" />
+            <entry value="32"         name="SIMBA_ROCKET_SERVICE_EC_ENG" />
+            <entry value="64"         name="SIMBA_ROCKET_SERVICE_EC_ENV" />
+            <entry value="128"        name="SIMBA_ROCKET_SERVICE_EC_LOGGER" />
+            <entry value="256"        name="SIMBA_ROCKET_SERVICE_EC_STAT" />
+            <entry value="512"        name="SIMBA_ROCKET_SERVICE_EC_IGNITER" />
+            <entry value="1024"       name="SIMBA_ROCKET_SERVICE_FC_TIMESTAMP_MW" />
+            <entry value="2048"       name="SIMBA_ROCKET_SERVICE_FC_I2C_MW" />
+            <entry value="4096"       name="SIMBA_ROCKET_SERVICE_FC_GPIO_MW" />
+            <entry value="8192"       name="SIMBA_ROCKET_SERVICE_FC_TEMP_MW" />
+            <entry value="16384"      name="SIMBA_ROCKET_SERVICE_FC_ENV" />
+            <entry value="32768"      name="SIMBA_ROCKET_SERVICE_FC_GPS" />
+            <entry value="65536"      name="SIMBA_ROCKET_SERVICE_FC_REC" />
+            <entry value="131072"     name="SIMBA_ROCKET_SERVICE_FC_RADIO" />
+            <entry value="262144"     name="SIMBA_ROCKET_SERVICE_FC_MAIN" />
+            <entry value="524288"     name="SIMBA_ROCKET_SERVICE_FC_STAT" />
+        </enum>
+
         
     </enums>
 
     <messages>
-        <message id="69" name="SIMBA_TANK_TEMPERATURE">
+        <message id="69" name="SIMBA_TANK_SENSORS">
             <description>Tank temperature sensor readings.</description>
             <!-- temp = float * 10 -->
             <field type="int16_t" name="upper_tank">Upper tank temperature</field>
             <field type="int16_t" name="middle_tank">Middle tank temperature</field>
             <field type="int16_t" name="lower_tank">Lower tank temperature</field>
-        </message>
-
-        <message id="70" name="SIMBA_TANK_PRESSURE">
-            <description>Tank pressure sensor reading.</description>
             <!-- pressure = float * 100 -->
             <field type="uint16_t" name="pressure">Tank pressure</field>
         </message>
@@ -96,6 +117,7 @@
         <message id="73" name="SIMBA_ROCKET_HEARTBEAT">
             <description>Rocket heartbeat message sent during whole mission.</description>
             <field type="uint64_t" name="timestamp">Timestamp (system uptime in ms)</field>
+            <field type="uint32_t"  enum="SIMBA_ROCKET_SERVICE" name="apps_alive"> Bitmap for all ec and fc apps </field>
             <field type="uint8_t" name="flight_computer_state" enum="SIMBA_ROCKET_STATE">Flight computer state</field>
             <field type="uint8_t" name="engine_computer_state" enum="SIMBA_ROCKET_STATE">Engine computer state</field>
             <field type="uint8_t" name="values" enum="SIMBA_ACTUATOR_FLAGS">Actuator bitmask</field>
@@ -113,19 +135,15 @@
             <field type="int32_t" name="altitude"> Altitude (scaled) [cm] </field>
         </message>
 
-        <message id="76" name="SIMBA_COMPUTER_TEMPERATURE">
-            <description> Rocket Computer Temperature in deg </description>
-            <!-- temp = float * 10 -->
-            <field type="int16_t" name="eb_temp">Mean Engine Computer temperature</field>
-            <field type="int16_t" name="mb_temp">Mean Main Computer temperature</field>
-        </message>
-
-        <message id="77" name="SIMBA_COMPUTER_USAGE">
+        <message id="77" name="SIMBA_COMPUTERS_TELEMETRY">
             <description> Rocket Computer Usage </description>
             <field type="uint8_t" name="mb_cpu_usage"> Main Computer CPU usage (0-100%)</field>
             <field type="uint8_t" name="mb_memory_usage"> Main Computer Memory usage (0-100%)</field>
             <field type="uint8_t" name="eb_cpu_usage"> Engine Computer CPU usage (0-100%)</field>
             <field type="uint8_t" name="eb_memory_usage"> Engine Computer Memory usage (0-100%)</field>
+            <!-- temp = static_cast<uint8_t>(float) -->
+            <field type="uint8_t[3]" name="mb_temperature"> Main Computer Board Temperature (0-128*C)</field>
+            <field type="uint8_t[3]" name="eb_temperature"> Egine Computer Board Temperature (0-128*C) </field>
         </message>
 
         <message id="147" name="SIMBA_ACTUATOR_CMD">
