@@ -17,6 +17,7 @@
             <entry value="8"  name="SIMBA_ROCKET_STATE_SEC_PARACHUTE" />
             <entry value="9"  name="SIMBA_ROCKET_STATE_DESCENT_MAIN" />
             <entry value="10" name="SIMBA_ROCKET_STATE_TOUCHDOWN" />
+            <entry value="54" name="SIMBA_ROCKET_STATE_CONNECTION_LOST" />
             <entry value="64" name="SIMBA_ROCKET_STATE_ABORT" />
         </enum>
 
