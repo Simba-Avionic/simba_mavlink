@@ -14,10 +14,11 @@
             <field type="uint16_t" name="rxerrors">Receive errors</field>
             <field type="uint16_t" name="fixed">Count of error corrected packets</field>
         </message>
-        
+
         <message id="24" name="L76K_GPS">
             <description>The GNSS data published by the L76K GNSS module.</description>
-            <field type="uint64_t" name="time_ms" units="ms">Timestamp (UNIX Epoch time)</field>
+            <field type="uint32_t" name="date" units="compact">Date in NMEA 0183 format (ddmmyy)</field>
+            <field type="uint32_t" name="time" units="compact">Time in NMEA 0183 format centiseconds (hhmmsscc)</field>
             <field type="int32_t" name="lat" units="degE7">Latitude (WGS84, EGM96 ellipsoid)</field>
             <field type="int32_t" name="lon" units="degE7">Longitude (WGS84, EGM96 ellipsoid)</field>
             <field type="float" name="speed" units="m/s">GPS speed</field>
