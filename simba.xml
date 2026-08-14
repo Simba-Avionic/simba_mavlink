@@ -47,6 +47,22 @@
             <entry value="16" name="SIMBA_GS_FLAGS_VENT_VALVE" />
             <entry value="32" name="SIMBA_GS_FLAGS_DUMP_VALVE" />
             <entry value="64" name="SIMBA_GS_FLAGS_CAMERAS" />
+            <entry value="128" name="SIMBA_GS_FLAGS_MAIN_VALVE" />
+            <entry value="256" name="SIMBA_GS_FLAGS_FEED_PRESSURIZER_VALVE" />
+            <entry value="512" name="SIMBA_GS_FLAGS_VENT_PRESSURIZER_VALVE" />
+            <entry value="1024" name="SIMBA_GS_FLAGS_DECOUPLER_OXIDIZER" />
+            <entry value="2048" name="SIMBA_GS_FLAGS_DECOUPLER_PRESSURIZER" />
+            <entry value="4096" name="SIMBA_GS_FLAGS_TARE_ROCKET" />
+            <entry value="8192" name="SIMBA_GS_FLAGS_TARE_OXIDIZER" />
+            <entry value="16384" name="SIMBA_GS_FLAGS_TARE_PRESSURIZER" />
+        </enum>
+
+        <enum name="SIMBA_COMMAND_ACK_STATUS">
+            <entry value="0" name="SIMBA_COMMAND_ACK_STATUS_RECEIVED" />
+            <entry value="1" name="SIMBA_COMMAND_ACK_STATUS_EXECUTED" />
+            <entry value="2" name="SIMBA_COMMAND_ACK_STATUS_REJECTED" />
+            <entry value="3" name="SIMBA_COMMAND_ACK_STATUS_FAILED" />
+            <entry value="4" name="SIMBA_COMMAND_ACK_STATUS_UNSUPPORTED" />
         </enum>
 
         <enum name="SIMBA_ROCKET_SERVICE" bitmask="true">
@@ -84,6 +100,12 @@
             <field type="int16_t" name="lower_tank">Lower tank temperature</field>
             <!-- pressure = float * 100 -->
             <field type="uint16_t" name="pressure">Tank pressure</field>
+        </message>
+
+        <message id="70" name="SIMBA_TANK_PRESSURE">
+            <description>Oxidizer pressure measured by the ground segment and sent to the rocket.</description>
+            <!-- pressure = float * 100 -->
+            <field type="uint16_t" name="pressure">Oxidizer pressure</field>
         </message>
 
         <message id="71" name="SIMBA_IMU">
@@ -129,7 +151,7 @@
         <message id="74" name="SIMBA_GS_HEARTBEAT">
             <description>Ground station heartbeat.</description>
             <field type="uint64_t" name="timestamp">Timestamp (system uptime in ms)</field>
-            <field type="uint8_t" name="values" enum="SIMBA_GS_FLAGS">GS buttons bitmask</field>
+            <field type="uint16_t" name="values" enum="SIMBA_GS_FLAGS">GS buttons bitmask</field>
         </message>
 
         <message id="75" name="SIMBA_MAX_ALTITUDE">
@@ -146,6 +168,16 @@
             <!-- temp = static_cast<uint8_t>(float) -->
             <field type="uint8_t[3]" name="mb_temperature"> Main Computer Board Temperature (0-128*C)</field>
             <field type="uint8_t[3]" name="eb_temperature"> Egine Computer Board Temperature (0-128*C) </field>
+        </message>
+
+        <message id="148" name="SIMBA_TANKING_COMMAND_ACK">
+            <description>Acknowledgement for a tanking command received over the radio.</description>
+            <field type="uint64_t" name="timestamp">Receiver timestamp when the acknowledgement was generated</field>
+            <field type="uint64_t" name="command_timestamp">Ground station heartbeat timestamp being acknowledged</field>
+            <field type="uint16_t" name="command" enum="SIMBA_GS_FLAGS">Single GS command flag being acknowledged</field>
+            <field type="uint8_t" name="requested_value">Value requested by the ground station</field>
+            <field type="uint8_t" name="executed_value">Value observed after command execution</field>
+            <field type="uint8_t" name="status" enum="SIMBA_COMMAND_ACK_STATUS">Acknowledgement status</field>
         </message>
 
         <message id="147" name="SIMBA_ACTUATOR_CMD">
