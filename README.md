@@ -95,7 +95,7 @@ Always check the field comments and apply the inverse operation for decoding.
 
 ### Rocket Telemetry
 - **SIMBA_TANK_TEMPERATURE** (ID: 69) - Tank temperature sensors
-- **SIMBA_TANK_PRESSURE** (ID: 70) - Tank pressure sensor
+- **SIMBA_GS_OXIDIZER_TANK_PRESSURE** (ID: 70) - Oxidizer tank pressure sent by the ground station
 - **SIMBA_IMU** (ID: 71) - IMU data with scaling factors
 - **SIMBA_GPS** (ID: 72) - GPS position data
 - **SIMBA_ROCKET_HEARTBEAT** (ID: 73) - Rocket system status
@@ -103,7 +103,7 @@ Always check the field comments and apply the inverse operation for decoding.
 - **SIMBA_COMPUTER_TEMPERATURE** (ID: 76) - Computer temperatures and resource usage
 
 ### Ground Station
-- **SIMBA_GS_HEARTBEAT** (ID: 74) - Ground station commands
+- **SIMBA_GS_HEARTBEAT** (ID: 74) - Ground station commands (`values` is a `uint16_t` bitmask)
 - **SIMBA_ACTUATOR_CMD** (ID: 147) - Direct actuator control (testing only)
 
 ### Radio
