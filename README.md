@@ -109,6 +109,7 @@ Always check the field comments and apply the inverse operation for decoding.
 - **SIMBA_ROCKET_MASS** (ID: 78) - Rocket mass sent by GS (in dag / 10g)
 - **SIMBA_GS_PFS_TANK_PRESSURE** (ID: 79) - PFS tank pressure sent by GS
 - **SIMBA_REFUELING_CMD** (ID: 151) - Command to control the autonomous refueling system (START/ABORT)
+- **SIMBA_GS_VALVE_CMD** (ID: 152) - Command from Rocket to Ground Segment to change GS valve position. (1 = Oxidizer Main, 2 = PFS Main)
 
 ### Radio
 - **RADIO_STATUS** (ID: 109) - Radio link status and quality metrics

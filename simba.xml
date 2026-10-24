@@ -195,6 +195,12 @@
             <field type="uint8_t" name="tank_id">ID of the tank</field>
         </message>
 
+        <message id="152" name="SIMBA_GS_VALVE_CMD">
+            <description>Command from Rocket to Ground Segment to change GS valve position.</description>
+            <field type="uint8_t" name="valve_id">ID of the valve</field>
+            <field type="uint8_t" name="position">0 = CLOSED, 1 = OPEN_100, 2 = OPEN_50</field>
+        </message>
+
     </messages>
 
 </mavlink>
