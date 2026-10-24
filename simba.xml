@@ -100,6 +100,18 @@
             <field type="uint16_t" name="pressure">Oxidizer pressure</field>
         </message>
 
+        <message id="78" name="SIMBA_ROCKET_MASS">
+            <description>Mass of the rocket measured by the ground segment and sent to the rocket.</description>
+            <!-- mass = value in dag (10g) -->
+            <field type="int16_t" name="mass">Rocket mass</field>
+        </message>
+
+        <message id="79" name="SIMBA_GS_PFS_TANK_PRESSURE">
+            <description>PFS pressure measured by the ground segment and sent to the rocket.</description>
+            <!-- pressure = float * 100 -->
+            <field type="uint16_t" name="pressure">PFS pressure</field>
+        </message>
+
         <message id="71" name="SIMBA_IMU">
             <description>IMU data (scaled float → int16_t)</description>
             <field type="uint64_t" name="timestamp">Timestamp [ms]</field>
