@@ -168,6 +168,21 @@
             <field type="uint8_t" name="value">New actuator value</field>
         </message>
 
+        <message id="150" name="SIMBA_REFUELING_STATUS">
+            <description>Status of the autonomous refueling system tanks</description>
+            <field type="uint8_t" name="tank0_state">State of Tank 0 (Oxidizer)</field>
+            <field type="uint8_t" name="tank1_state">State of Tank 1 (PFS)</field>
+            <field type="uint8_t" name="tank2_state">State of Tank 2</field>
+            <field type="uint8_t" name="tank3_state">State of Tank 3</field>
+        </message>
+
+        <message id="151" name="SIMBA_REFUELING_CMD">
+            <description>Command from GS to control the autonomous refueling system of a specific tank.</description>
+            <field type="uint16_t" name="target_value">Target mass or pressure (ignored on ABORT command)</field>
+            <field type="uint8_t" name="command">Command to execute (0 = ABORT, 1 = START)</field>
+            <field type="uint8_t" name="tank_id">ID of the tank</field>
+        </message>
+
     </messages>
 
 </mavlink>
