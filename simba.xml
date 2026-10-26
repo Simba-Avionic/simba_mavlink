@@ -100,6 +100,18 @@
             <field type="uint16_t" name="pressure">Oxidizer pressure</field>
         </message>
 
+        <message id="78" name="SIMBA_ROCKET_MASS">
+            <description>Mass of the rocket measured by the ground segment and sent to the rocket.</description>
+            <!-- mass = value in dag (10g) -->
+            <field type="int16_t" name="mass">Rocket mass</field>
+        </message>
+
+        <message id="79" name="SIMBA_GS_PFS_TANK_PRESSURE">
+            <description>PFS pressure measured by the ground segment and sent to the rocket.</description>
+            <!-- pressure = float * 100 -->
+            <field type="uint16_t" name="pressure">PFS pressure</field>
+        </message>
+
         <message id="71" name="SIMBA_IMU">
             <description>IMU data (scaled float → int16_t)</description>
             <field type="uint64_t" name="timestamp">Timestamp [ms]</field>
@@ -166,6 +178,27 @@
             <description>Direct actuator command (for testing; DO NOT USE IN PRODUCTION).</description>
             <field type="uint8_t" name="actuator_id">Actuator ID</field>
             <field type="uint8_t" name="value">New actuator value</field>
+        </message>
+
+        <message id="150" name="SIMBA_REFUELING_STATUS">
+            <description>Status of the autonomous refueling system tanks</description>
+            <field type="uint8_t" name="tank0_state">State of Tank 0 (Oxidizer)</field>
+            <field type="uint8_t" name="tank1_state">State of Tank 1 (PFS)</field>
+            <field type="uint8_t" name="tank2_state">State of Tank 2</field>
+            <field type="uint8_t" name="tank3_state">State of Tank 3</field>
+        </message>
+
+        <message id="151" name="SIMBA_REFUELING_CMD">
+            <description>Command from GS to control the autonomous refueling system of a specific tank.</description>
+            <field type="uint16_t" name="target_value">Target mass or pressure (ignored on ABORT command)</field>
+            <field type="uint8_t" name="command">Command to execute (0 = ABORT, 1 = START)</field>
+            <field type="uint8_t" name="tank_id">ID of the tank</field>
+        </message>
+
+        <message id="152" name="SIMBA_GS_VALVE_CMD">
+            <description>Command from Rocket to Ground Segment to change GS valve position.</description>
+            <field type="uint8_t" name="valve_id">ID of the valve</field>
+            <field type="uint8_t" name="position">0 = CLOSED, 1 = OPEN_100, 2 = OPEN_50</field>
         </message>
 
     </messages>
