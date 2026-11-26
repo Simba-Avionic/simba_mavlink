@@ -7,6 +7,7 @@
     <enums>
         <enum name="ROCKET_STATE">
             <description>Rocket states</description>
+            <entry value="0"  name="ROCKET_STATE_UNKNOWN" />
             <entry value="1"  name="ROCKET_STATE_INIT" />
             <entry value="2"  name="ROCKET_STATE_DISARM" />
             <entry value="3"  name="ROCKET_STATE_ARM" />
@@ -41,24 +42,24 @@
             <entry value="4" name="PRIMER_STATE_FIRED" />
         </enum>
 
-        <enum name="GS_FLAGS" bitmask="true">
+        <enum name="GS_CMD_BITS" bitmask="true">
             <!-- Flags which the GSE uses to change rocket states. -->
-            <entry value="1"  name="GS_FLAGS_DISARM" />
-            <entry value="2"  name="GS_FLAGS_ARM" />
-            <entry value="4"  name="GS_FLAGS_PRESSURIZE" />
-            <entry value="8"  name="GS_FLAGS_LAUNCH" />
-            <entry value="16" name="GS_FLAGS_ABORT" />
+            <entry value="1"  name="GS_CMD_BITS_DISARM" />
+            <entry value="2"  name="GS_CMD_BITS_ARM" />
+            <entry value="4"  name="GS_CMD_BITS_PRESSURIZE" />
+            <entry value="8"  name="GS_CMD_BITS_LAUNCH" />
+            <entry value="16" name="GS_CMD_BITS_ABORT" />
 
-            <entry value="32" name="GS_FLAGS_OXIDIZER_VENT_VALVE" />
-            <entry value="64" name="GS_FLAGS_OXIDIZER_DUMP_VALVE" />
+            <entry value="32" name="GS_CMD_BITS_OXIDIZER_VENT_VALVE" />
+            <entry value="64" name="GS_CMD_BITS_OXIDIZER_DUMP_VALVE" />
 
-            <entry value="128" name="GS_FLAGS_PFS_VENT_VALVE" />
-            <entry value="256" name="GS_FLAGS_PFS_DUMP_VALVE" />
+            <entry value="128" name="GS_CMD_BITS_PFS_VENT_VALVE" />
+            <entry value="256" name="GS_CMD_BITS_PFS_DUMP_VALVE" />
 
-            <entry value="512" name="GS_FLAGS_ETHANOL_VENT_VALVE" />
-            <entry value="1024" name="GS_FLAGS_ETHANOL_DUMP_VALVE" />
+            <entry value="512" name="GS_CMD_BITS_ETHANOL_VENT_VALVE" />
+            <entry value="1024" name="GS_CMD_BITS_ETHANOL_DUMP_VALVE" />
 
-            <entry value="2048" name="GS_FLAGS_CAMERAS" />
+            <entry value="2048" name="GS_CMD_BITS_CAMERAS" />
         </enum>
         
     </enums>
@@ -89,14 +90,14 @@
             <description>Rocket heartbeat message sent during whole mission.</description>
             <field type="uint64_t" name="timestamp" units="ms">Timestamp (system uptime)</field>
             <field type="uint8_t" name="rocket_state" enum="ROCKET_STATE">Rocket computer state</field>
-            <field type="uint16_t" name="values" enum="ACTUATOR_FLAGS" display="bitmask">Actuator bitmask</field>
+            <field type="uint16_t" name="valves_states" enum="ACTUATOR_FLAGS" display="bitmask">Actuator bitmask</field>
             <field type="uint8_t" name="primer_state" enum="PRIMER_STATE">Primer State</field>
         </message>
 
         <message id="74" name="SIMBA_GS_HEARTBEAT">
             <description>Ground station heartbeat.</description>
             <field type="uint64_t" name="timestamp" units="ms">Timestamp (system uptime)</field>
-            <field type="uint16_t" name="values" enum="GS_FLAGS" display="bitmask">GS buttons bitmask</field>
+            <field type="uint16_t" name="values" enum="GS_CMD_BITS" display="bitmask">GS buttons bitmask</field>
         </message>
 
         <message id="75" name="SIMBA_MAX_ALTITUDE">
